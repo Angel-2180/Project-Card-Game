@@ -10,8 +10,6 @@ public class DeckManager : MonoBehaviour
     public Transform[] handSlot;
     public bool[] slotAvalable;
 
-    [SerializeField] private int nbStartCard;
-
     public List<Card> discard;
 
     private void DrawCardFirstTurn()
@@ -19,7 +17,7 @@ public class DeckManager : MonoBehaviour
         if(deck.Count >=1)
         {
             Card randCard = deck[Random.Range(0, deck.Count)];
-            for(int i = 0; i < nbStartCard; i++)
+            for(int i = 0; i < slotAvalable.Length; i++)
             {
                 if(slotAvalable[i] == true)
                 {
@@ -35,31 +33,8 @@ public class DeckManager : MonoBehaviour
         }
     }
 
-    private void DrawCard()
-    {
-        for(int i = 0; i < slotAvalable.Length; i++)
-        {
-            if(slotAvalable[i] == true)
-            {
-                Card cardDraw = deck[Random.Range(0, deck.Count)];
-                cardDraw.gameObject.SetActive(true);
-                cardDraw.index = i;
-                cardDraw.transform.position = handSlot[i].position;
-                cardDraw.isPlayed = false;
-                deck.Remove(cardDraw);
-                slotAvalable[i] = false;
-                return;
-            }
-        }
-    }
-
     void Update()
     {
         DrawCardFirstTurn();
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            DrawCard();
-        }
     }
-   
 }

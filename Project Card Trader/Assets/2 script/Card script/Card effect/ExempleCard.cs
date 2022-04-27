@@ -5,7 +5,7 @@ using UnityEngine;
 public class ExempleCard : MonoBehaviour
 {
     public bool isUsed;
-    public int cost;
+    public int price;
 
     public void Effect()
     {
