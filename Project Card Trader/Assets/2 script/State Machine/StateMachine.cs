@@ -75,7 +75,10 @@ public class StateMachine : MonoBehaviour
 
     private IEnumerator sell()
     {
-        if (enemyUnit.listOBJ.objList.Count > 0 || !enemyUnit.player.isWeekEnd)
+        if (enemyUnit.player.isWeekEnd)
+        {
+        }
+        if (enemyUnit.listOBJ.objList.Count > 0)
         {
             enemyUnit.listOBJ.objList.RemoveAt(enemyUnit.index);
             enemyUnit.player.money += enemyUnit.price;
@@ -84,16 +87,12 @@ public class StateMachine : MonoBehaviour
             Destroy(enemyGO);
             StartCoroutine(setupBattle());
         }
-        else if (enemyUnit.player.isWeekEnd)
-        {
-            setupWeek();
-        }
         else
         {
             Destroy(enemyGO);
+            enemyUnit.player.isWeekEnd = true;
             yield break;
         }
-
         yield return new WaitForSeconds(2f);
 
         playerTurn();

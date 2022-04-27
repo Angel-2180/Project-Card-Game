@@ -25,11 +25,13 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     public int maxPatience = 15;
 
-    public int mefiance = Random.Range(0, 1);
+    public int mefiance;
 
     public int patience;
 
+    [HideInInspector]
     public sellObjList listOBJ;
+
     public int index;
 
     public int price = 600;
@@ -38,6 +40,7 @@ public class Unit : MonoBehaviour
 
     private void Awake()
     {
+        mefiance = Random.Range(0, 1);
         int rng = Random.Range(1, 3);
         switch (rng)
         {
@@ -75,10 +78,10 @@ public class Unit : MonoBehaviour
         else
         {
             price = 0;
+            index = 0;
         }
 
         player = playerStat.current;
-        ;
     }
 
     public void changePrice(int change)
