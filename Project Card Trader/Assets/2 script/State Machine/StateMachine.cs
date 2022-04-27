@@ -66,9 +66,16 @@ public class StateMachine : MonoBehaviour
         StartCoroutine(sell());
     }
 
+    private void setupWeek()
+    {
+        foreach (var obj in enemyUnit.listOBJ.objList)
+        {
+        }
+    }
+
     private IEnumerator sell()
     {
-        if (enemyUnit.listOBJ.objList.Count > 0)
+        if (enemyUnit.listOBJ.objList.Count > 0 || !enemyUnit.player.isWeekEnd)
         {
             enemyUnit.listOBJ.objList.RemoveAt(enemyUnit.index);
             enemyUnit.player.money += enemyUnit.price;
@@ -77,6 +84,10 @@ public class StateMachine : MonoBehaviour
             Destroy(enemyGO);
             StartCoroutine(setupBattle());
         }
+        else if (enemyUnit.player.isWeekEnd)
+        {
+            setupWeek();
+        }
         else
         {
             Destroy(enemyGO);
@@ -84,7 +95,9 @@ public class StateMachine : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2f);
+
         playerTurn();
+
         state = GameState.PlayerTurn;
     }
 

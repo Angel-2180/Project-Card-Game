@@ -25,7 +25,7 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     public int maxPatience = 15;
 
-    public int mefiance;
+    public int mefiance = Random.Range(0, 1);
 
     public int patience;
 
