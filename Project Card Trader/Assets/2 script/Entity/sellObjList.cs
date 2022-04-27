@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerStat : MonoBehaviour
+public class sellObjList : MonoBehaviour
 {
-    public static playerStat current;
-    public int charisme;
-    public int money = 50;
+    public static sellObjList current;
+
+    public List<sellObject> objList;
 
     private void Awake()
     {
