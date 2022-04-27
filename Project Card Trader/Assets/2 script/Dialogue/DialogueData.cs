@@ -20,7 +20,5 @@ public class DialogueData : ScriptableObject
         //Zone de texte / texte afficher
         [TextArea(3, 10)]
         public string sentence;
-
-        public string message;
     }
 }

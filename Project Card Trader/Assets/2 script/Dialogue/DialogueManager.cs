@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DG.Tweening;
+using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
     #region Variables
     #region UI_Components
-    public Text dialogueTextNameComponent;
-    public Text dialogueTextDialogueComponent;
+    public TMP_Text dialogueTextNameComponent;
+    public TMP_Text dialogueTextDialogueComponent;
+    public Transform dialogueBox;
     #endregion
+
+    private float moveDistance = 300;
+    private float moveSppeed = 0.5f;
 
     public static DialogueManager current;
 
@@ -42,7 +47,10 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(DialogueData.Data[] dialogue, string name)
     {
         //On demarre l'animation d'entree de la boite de dialogue
-        //animator.SetBool("IsOpen", true);
+        dialogueBox.DOMove(dialogueBox.position + Vector3.up * moveDistance, moveSppeed).SetEase(Ease.InOutSine);
+
+        //dialogueBox.eulerAngles = new Vector3(0, 0, -5);
+        //dialogueBox.DORotate(dialogueBox.eulerAngles + new Vector3(0, 0, 10), 0.05f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
 
         //On vide la pile de sentence
         sentences.Clear();
@@ -76,12 +84,8 @@ public class DialogueManager : MonoBehaviour
 
         //On arrete toutes les couroutines
         StopAllCoroutines();
-        SendMessage(sentence.message, SendMessageOptions.DontRequireReceiver);
         //On demarre l'animation du texte
         StartCoroutine(TypeSentence(sentence.sentence));
-
-        //Envoie un message aux objects enfants
-        BroadcastMessage(sentence.message, SendMessageOptions.DontRequireReceiver);
     }
 
     IEnumerator TypeSentence(string sentence)//Animation du texte
@@ -96,6 +100,7 @@ public class DialogueManager : MonoBehaviour
             //On attend 1 frame
             yield return WaitForRealSeconds(dialogueSpeed);
         }
+        WoobleLetter();
     }
 
     IEnumerator WaitForRealSeconds(float seconds)
@@ -109,10 +114,16 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()//On met fin au dialogue 
     {
+        FindObjectOfType<DialogueTrigger>()._trigger = false;
+        //On enleve la boite de dialogue de l'ecran
+        dialogueBox.DOMove(dialogueBox.position - Vector3.up * moveDistance, moveSppeed).SetEase(Ease.InOutSine);
         //On arrete toutes les couroutines
         StopAllCoroutines();
         sentences.Clear();
-        //On enleve la boite de dialogue de l'ecran
-        //animator.SetBool("IsOpen", false);
+    }
+    
+    public void WoobleLetter()
+    {
+        dialogueTextDialogueComponent.textInfo.characterInfo[5].color = new Color32(1, 0, 0, 1);
     }
 }

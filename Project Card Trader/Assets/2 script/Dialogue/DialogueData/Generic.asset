@@ -10,26 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc09e28b0a272d94bb505d55203ecaac, type: 3}
-  m_Name: CharacterBase
+  m_Name: Generic
   m_EditorClassIdentifier: 
   name: Le lapin
   introduction:
   - sentence: Bien le bonjour !
-    message: 
   - sentence: "Belle journ\xE9e n'est ce pas ?"
-    message: 
   neutral:
   - sentence: Vous avez le commerce dans le sang.
-    message: 
   - sentence: "Ce produit m'int\xE9resse beaucoup."
-    message: 
   happy:
   - sentence: "Cela me semble \xEAtre un prix \xE9sonable !"
-    message: 
   - sentence: "Vous \xEAtes vraiment une personne honn\xEAte !"
-    message: 
   angry:
   - sentence: Me prenez vous pour un idiot !?
-    message: 
   - sentence: Je suis sur de trouver moins cher ailleurs...
-    message: 

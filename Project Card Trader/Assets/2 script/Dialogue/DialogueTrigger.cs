@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 
 //Le dialogue trigger est le script qui va demarrer le dialogue
@@ -12,23 +11,6 @@ public class DialogueTrigger : MonoBehaviour
     public DialogueData dataDialogue;
 
     public bool _trigger;
-
-    public string targetTag;
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (_trigger && collision.CompareTag(targetTag))
-        {
-            TriggerAngryDialogue();
-            Destroy(gameObject);
-        }
-    }
-
-    private void ObjectClick()
-    {
-
-        TriggerAngryDialogue();
-    }
 
     public void TriggerIntroDialogue()
     {
@@ -71,7 +53,22 @@ public class DialogueTrigger : MonoBehaviour
             }
             else
             {
-                TriggerAngryDialogue();
+                int rdm = Random.Range(0, 3);
+                switch (rdm)
+                {
+                    case 0:
+                        TriggerAngryDialogue();
+                        break;
+                    case 1:
+                        TriggerHappyDialogue();
+                        break;
+                    case 2:
+                        TriggerNeutralDialogue();
+                        break;
+                    case 3:
+                        TriggerIntroDialogue();
+                        break;
+                }
             }
         }
     }
