@@ -35,15 +35,18 @@ public class StateMachine : MonoBehaviour
 
     private IEnumerator setupBattle()
     {
-        index = Random.Range(0, enemyPrefabs.Count + 1);
-        Debug.Log("index " + index);
-        yield return new WaitForSeconds(2f);
+        if (enemyPrefabs.Count > 0)
+        {
+            index = Random.Range(0, enemyPrefabs.Count);
+            Debug.Log("index " + index);
+            yield return new WaitForSeconds(2f);
 
-        enemyGO = Instantiate(enemyPrefabs[index], enemyTransform);
-        enemyUnit = enemyGO.GetComponent<Unit>();
-        CardEffects.SearchPlayer();
+            enemyGO = Instantiate(enemyPrefabs[index], enemyTransform);
+            enemyUnit = enemyGO.GetComponent<Unit>();
+            CardEffects.SearchPlayer();
 
-        enemyHUD.setHUD(enemyUnit);
+            enemyHUD.setHUD(enemyUnit);
+        }
 
         state = GameState.PlayerTurn;
         playerTurn();
@@ -97,8 +100,11 @@ public class StateMachine : MonoBehaviour
 
             yield break;
         }
-
-        enemyPrefabs.RemoveAt(index);
+        enemyHUD.resetHUD();
+        if (enemyPrefabs.Count > 0)
+        {
+            enemyPrefabs.RemoveAt(index);
+        }
         yield return new WaitForSeconds(2f);
 
         playerTurn();
@@ -140,13 +146,17 @@ public class StateMachine : MonoBehaviour
         {
             yield break;
         }
-        if (enemyUnit.patience <= 0 || (enemyUnit.mood) <= 0)
+        if (enemyUnit.patience <= 0 || enemyUnit.mood <= 0)
         {
             Destroy(enemyGO);
             enemyPrefabs.RemoveAt(index);
+            state = GameState.PlayerTurn;
+            playerTurn();
+            StartCoroutine(setupBattle());
+            yield break;
         }
         Debug.Log("ENEMY TURN");
-        int rng = Random.Range(1, 7);
+        int rng = Random.Range(1, 5);
         AttackPatern(rng);
         Debug.Log(rng);
 

@@ -66,10 +66,10 @@ public class Unit : MonoBehaviour
         }
         listOBJ = sellObjList.current;
 
-        maxHapiness = Random.Range(0, 200);
-        maxCalm = Random.Range(0f, 1f);
-        hapiness = Random.Range(0, maxHapiness);
-        calm = Random.Range(0, maxCalm);
+        maxHapiness = Random.Range(100, 200);
+        maxCalm = Random.Range(0.5f, 1f);
+        hapiness = Random.Range(10, maxHapiness);
+        calm = Random.Range(0.1f, maxCalm);
         mood = hapiness * calm;
         patience = UnityEngine.Random.Range(11, maxPatience + 1);
 
