@@ -14,6 +14,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int nbStartCard;
 
     public List<Card> discard;
+    public List<Card> banCard;
+
+    public int nbCardDraw;
+    public int nbCardBan;
+
+    public bool discardHandEndTurn = true;
 
     private void Start()
     {
@@ -40,11 +46,15 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     public void DiscardHand()
     {
-
+        foreach (Card card in hand)
+        {
+            discard.Add(card);
+        }
+        hand.Clear();
     }
+
 
     public void DrawCard()
     {
@@ -53,6 +63,7 @@ public class GameManager : MonoBehaviour
             if (slotAvalable[i] == true)
             {
                 Card cardDraw = deck[Random.Range(0, deck.Count)];
+                nbCardDraw += 1;
                 cardDraw.gameObject.SetActive(true);
                 cardDraw.index = i;
                 cardDraw.transform.position = handSlot[i].position;

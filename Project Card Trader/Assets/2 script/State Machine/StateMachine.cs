@@ -35,11 +35,13 @@ public class StateMachine : MonoBehaviour
 
     private IEnumerator setupBattle()
     {
+
         if (enemyPrefabs.Count > 0)
         {
             index = Random.Range(0, enemyPrefabs.Count);
             Debug.Log("index " + index);
             yield return new WaitForSeconds(2f);
+
 
             enemyGO = Instantiate(enemyPrefabs[index], enemyTransform);
             enemyUnit = enemyGO.GetComponent<Unit>();

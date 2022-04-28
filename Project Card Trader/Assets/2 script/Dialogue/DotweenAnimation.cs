@@ -1,8 +1,7 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using UnityEngine.UI;
 
 
 public class DotweenAnimation : MonoBehaviour
@@ -14,7 +13,6 @@ public class DotweenAnimation : MonoBehaviour
 
     [Header("MOVE UP")]
     private float moveDist = 30;
-    private float moveDuration = 0.2f;
 
     [Header("RotateLeftRight")]
     private float rotation = 30;
@@ -24,9 +22,9 @@ public class DotweenAnimation : MonoBehaviour
     [Header("MoveLeftRight")]
     private float moveDistLR = 300f;
     private float moveDurationLR = 0.2f;
-    private int numberOfLoopLR = 4;  
-    
-    
+    private int numberOfLoopLR = 4;
+
+
     [Header("Scaling")]
     private float scaleUpX = 3f;
     private float scaleUpXDur = 0.2f;
@@ -49,7 +47,7 @@ public class DotweenAnimation : MonoBehaviour
 
     private void Start()
     {
-        actionRandom.Add("MoveUp");
+        actionRandom.Add("TrueMoveUp");
         actionRandom.Add("RotateLeftRight");
         actionRandom.Add("MoveLeftRight");
         actionRandom.Add("Talk");
@@ -60,14 +58,15 @@ public class DotweenAnimation : MonoBehaviour
         ArriveAnimation();
     }
 
-    private IEnumerator StartAnimation()
+
+    private void Update()
     {
-        transform.rotation = Quaternion.Euler(0, 90, 0);
-        yield return new WaitForSeconds(1);
-        transform.DORotateQuaternion(Quaternion.Euler(0, 0, 0), 1).SetEase(Ease.OutBounce);
-        MoveUp(2);
-        yield return new WaitForSeconds(3);
-        ExitAnimation();
+        if (Input.GetKeyDown(KeyCode.Space) && DialogueManager.current.isPlayingDialogue)
+        {
+            string rdm = actionRandom[animIndex];
+            Invoke(rdm, 0);
+            print(rdm);
+        }
     }
 
     private void ArriveAnimation()
@@ -75,38 +74,46 @@ public class DotweenAnimation : MonoBehaviour
         StartCoroutine(StartAnimation());
     }
 
+    private IEnumerator StartAnimation()
+    {
+        transform.DOMoveX(transform.position.x - 800, Time.deltaTime).OnComplete(() => 
+        {
+            MoveUp(14);
+            transform.DOMoveX(transform.position.x + 800, 3);
+        });
+        yield return new WaitForSeconds(1);
+        transform.DORotateQuaternion(Quaternion.Euler(0, 0, 0), 1).SetEase(Ease.OutBounce);
+        yield return new WaitForSeconds(3);
+        ExitAnimation();
+    }
+
+
     private void ExitAnimation()
     {
-        transform.DORotateQuaternion(Quaternion.Euler(0, 90, 0), 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
+        transform.DORotateQuaternion(Quaternion.Euler(0, 180, 0), 0.5f).SetEase(Ease.OutExpo).OnComplete(() =>
         {
-            transform.parent.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            transform.DORotateQuaternion(Quaternion.Euler(0, 0, 0), 0.5f).SetEase(Ease.OutBounce).OnComplete(() => 
+            MoveUp(-1);
+            transform.parent.DOScale(transform.parent.lossyScale.x - 0.5f, 1).SetEase(Ease.InOutSine).OnComplete(() =>
             {
-                transform.DOMoveX(transform.position.x - 500, 1).SetEase(Ease.OutFlash);
+                transform.DOMoveX(transform.position.x - 800, 3).SetEase(Ease.OutFlash);
             });
         });
-        
     }
 
-    private void Update()
+    public void TrueMoveUp()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && DialogueManager.current.isPlayingDialogue) 
-        {
-            string rdm = actionRandom[animIndex];
-            Invoke(rdm, 0); 
-            print(rdm);
-        }
+        MoveUp(8, 0.2f);
     }
 
-    public void MoveUp(int numberOfLoop = 8)
+    public void MoveUp(int numberOfLoop = 8, float moveDuration = 0.2f)
     {
         print(moveDist);
-        transform.DOMoveY(transform.position.y + moveDist, moveDuration).SetLoops(numberOfLoop, LoopType.Yoyo).SetEase(Ease.OutSine);      
+        transform.parent.DOMoveY(transform.parent.position.y + moveDist, moveDuration).SetLoops(numberOfLoop, LoopType.Yoyo).SetEase(Ease.OutSine);
     }
 
-    public void RotateLeftRight ()
+    public void RotateLeftRight()
     {
-        transform.parent.DORotate(new Vector3(0, 0, rotation) , rotDuration).SetLoops(numberOfLoopRot, LoopType.Yoyo).SetEase(Ease.OutSine);
+        transform.parent.DORotate(new Vector3(0, 0, rotation), rotDuration).SetLoops(numberOfLoopRot, LoopType.Yoyo).SetEase(Ease.OutSine);
     }
 
     public void MoveLeftRight()
