@@ -45,4 +45,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataDialogue: {fileID: 11400000, guid: e8807eb4bc0dfdb4b8d44e869f7bf48c, type: 2}
   _trigger: 0
-  targetTag: 

@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public List<Card> deck;
     public List<Card> initialDeck;
+    public List<Card> hand;
 
     public Transform[] handSlot;
     public bool[] slotAvalable;
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
                     randCard.transform.position = handSlot[i].position;
                     randCard.isPlayed = false;
                     deck.Remove(randCard);
+                    hand.Add(randCard);
                     slotAvalable[i] = false;
                     return;
                 }
@@ -39,7 +41,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void DrawCard()
+    public void DiscardHand()
+    {
+
+    }
+
+    public void DrawCard()
     {
         for (int i = 0; i < slotAvalable.Length; i++)
         {
@@ -51,6 +58,7 @@ public class GameManager : MonoBehaviour
                 cardDraw.transform.position = handSlot[i].position;
                 cardDraw.isPlayed = false;
                 deck.Remove(cardDraw);
+                hand.Add(cardDraw);
                 slotAvalable[i] = false;
                 return;
             }

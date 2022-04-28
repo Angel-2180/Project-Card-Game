@@ -35,6 +35,7 @@ public class StateMachine : MonoBehaviour
 
         enemyGO = Instantiate(enemyPrefabs[index], enemyTransform);
         enemyUnit = enemyGO.GetComponent<Unit>();
+        CardEffects.SearchPlayer();
 
         enemyHUD.setHUD(enemyUnit);
 
