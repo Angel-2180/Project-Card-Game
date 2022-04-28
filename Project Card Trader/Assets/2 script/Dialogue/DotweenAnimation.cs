@@ -15,7 +15,6 @@ public class DotweenAnimation : MonoBehaviour
     [Header("MOVE UP")]
     private float moveDist = 30;
     private float moveDuration = 0.2f;
-    private int numberOfLoop = 8;
 
     [Header("RotateLeftRight")]
     private float rotation = 30;
@@ -56,18 +55,50 @@ public class DotweenAnimation : MonoBehaviour
         actionRandom.Add("Talk");
     }
 
+    private void Awake()
+    {
+        ArriveAnimation();
+    }
+
+    private IEnumerator StartAnimation()
+    {
+        transform.rotation = Quaternion.Euler(0, 90, 0);
+        yield return new WaitForSeconds(1);
+        transform.DORotateQuaternion(Quaternion.Euler(0, 0, 0), 1).SetEase(Ease.OutBounce);
+        MoveUp(2);
+        yield return new WaitForSeconds(3);
+        ExitAnimation();
+    }
+
+    private void ArriveAnimation()
+    {
+        StartCoroutine(StartAnimation());
+    }
+
+    private void ExitAnimation()
+    {
+        transform.DORotateQuaternion(Quaternion.Euler(0, 90, 0), 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
+        {
+            transform.parent.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            transform.DORotateQuaternion(Quaternion.Euler(0, 0, 0), 0.5f).SetEase(Ease.OutBounce).OnComplete(() => 
+            {
+                transform.DOMoveX(transform.position.x - 500, 1).SetEase(Ease.OutFlash);
+            });
+        });
+        
+    }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && DialogueManager.current.isPlayingDialogue) 
         {
             string rdm = actionRandom[animIndex];
-            Invoke(rdm,0); 
+            Invoke(rdm, 0); 
             print(rdm);
         }
     }
 
-    public void MoveUp()
+    public void MoveUp(int numberOfLoop = 8)
     {
         print(moveDist);
         transform.DOMoveY(transform.position.y + moveDist, moveDuration).SetLoops(numberOfLoop, LoopType.Yoyo).SetEase(Ease.OutSine);      

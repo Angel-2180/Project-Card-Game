@@ -99,7 +99,8 @@ public class DialogueManager : MonoBehaviour
         foreach (char letter in sentence.ToCharArray())
         {
             dialogueTextDialogueComponent.text += letter;
-            SendMessage("PlayAudio", SendMessageOptions.RequireReceiver);
+            if(sentence.IndexOf(letter) % 2 == 0)
+                SendMessage("PlayAudio", SendMessageOptions.RequireReceiver);
             //On attend 1 frame
             yield return WaitForRealSeconds(dialogueSpeed);
         }
