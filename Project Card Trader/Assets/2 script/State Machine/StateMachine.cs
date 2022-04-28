@@ -9,6 +9,7 @@ public enum GameState
 
 public class StateMachine : MonoBehaviour
 {
+    public static StateMachine current;
     public GameState state;
 
     public List<GameObject> enemyPrefabs;
@@ -21,6 +22,11 @@ public class StateMachine : MonoBehaviour
     private float buffAttack;
     private int index;
 
+    private void Awake()
+    {
+        current = this;
+    }
+
     public void Start()
     {
         state = GameState.Start;
@@ -30,12 +36,12 @@ public class StateMachine : MonoBehaviour
     private IEnumerator setupBattle()
     {
         index = Random.Range(0, enemyPrefabs.Count + 1);
+        Debug.Log("index " + index);
 
         yield return new WaitForSeconds(2f);
 
         enemyGO = Instantiate(enemyPrefabs[index], enemyTransform);
         enemyUnit = enemyGO.GetComponent<Unit>();
-        CardEffects.SearchPlayer();
 
         enemyHUD.setHUD(enemyUnit);
 
@@ -73,18 +79,8 @@ public class StateMachine : MonoBehaviour
         StartCoroutine(sell());
     }
 
-    private void setupWeek()
-    {
-        foreach (var obj in enemyUnit.listOBJ.objList)
-        {
-        }
-    }
-
     private IEnumerator sell()
     {
-        if (enemyUnit.player.isWeekEnd)
-        {
-        }
         if (enemyUnit.listOBJ.objList.Count > 0)
         {
             enemyUnit.listOBJ.objList.RemoveAt(enemyUnit.index);
@@ -98,9 +94,10 @@ public class StateMachine : MonoBehaviour
         else
         {
             Destroy(enemyGO);
-            enemyUnit.player.isWeekEnd = true;
+
             yield break;
         }
+
         enemyPrefabs.RemoveAt(index);
         yield return new WaitForSeconds(2f);
 
