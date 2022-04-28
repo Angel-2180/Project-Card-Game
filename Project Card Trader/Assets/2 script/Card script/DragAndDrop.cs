@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DragAndDrop : MonoBehaviour
 {
-    private GameObject selectedObject;
+    public GameObject selectedObject;
 
     private void Update()
     {
@@ -28,7 +28,7 @@ public class DragAndDrop : MonoBehaviour
             {
                 Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-                selectedObject.transform.position = new Vector3(worldPosition.x, 0f, worldPosition.z);
+                selectedObject.transform.position = new Vector3(worldPosition.x, worldPosition.y, worldPosition.z);
 
                 selectedObject = null;
                 Cursor.visible = true;
@@ -39,7 +39,7 @@ public class DragAndDrop : MonoBehaviour
         {
             Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-            selectedObject.transform.position = new Vector3(worldPosition.x, .25f, worldPosition.z);
+            selectedObject.transform.position = new Vector3(worldPosition.x, worldPosition.y, worldPosition.z);
 
             if (Input.GetMouseButtonDown(1))
             {
