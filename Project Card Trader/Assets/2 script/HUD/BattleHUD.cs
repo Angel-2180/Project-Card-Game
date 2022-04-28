@@ -25,6 +25,11 @@ public class BattleHUD : MonoBehaviour
         moodSlider.value = unit.hapiness * unit.calm;
     }
 
+    public void updatePatience(int patience)
+    {
+        patienceText.text = patience.ToString();
+    }
+
     public void updatePrice(int price)
     {
         priceText.text = price.ToString();

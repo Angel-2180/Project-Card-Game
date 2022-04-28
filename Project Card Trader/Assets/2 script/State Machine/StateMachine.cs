@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public enum GameState
 { Start, PlayerTurn, EnemyTurn, Wait, Sell }
 
 public class StateMachine : MonoBehaviour
 {
+    public static StateMachine current;
     public GameState state;
 
-    public GameObject enemyPrefabs;
+    public List<GameObject> enemyPrefabs;
     public Unit enemyUnit;
     public Transform enemyTransform;
 
@@ -18,6 +20,12 @@ public class StateMachine : MonoBehaviour
     private GameObject enemyGO;
 
     private float buffAttack;
+    private int index;
+
+    private void Awake()
+    {
+        current = this;
+    }
 
     public void Start()
     {
@@ -27,10 +35,14 @@ public class StateMachine : MonoBehaviour
 
     private IEnumerator setupBattle()
     {
+
+        index = Random.Range(0, enemyPrefabs.Count );
+        Debug.Log("index " + index);
         yield return new WaitForSeconds(2f);
 
-        enemyGO = Instantiate(enemyPrefabs, enemyTransform);
+        enemyGO = Instantiate(enemyPrefabs[index], enemyTransform);
         enemyUnit = enemyGO.GetComponent<Unit>();
+        CardEffects.SearchPlayer();
 
         enemyHUD.setHUD(enemyUnit);
 
@@ -50,6 +62,8 @@ public class StateMachine : MonoBehaviour
             return;
         }
 
+        enemyUnit.patience -= 1;
+        enemyHUD.updatePatience(enemyUnit.patience);
         state = GameState.EnemyTurn;
         StartCoroutine(enemyTurn());
     }
@@ -66,18 +80,8 @@ public class StateMachine : MonoBehaviour
         StartCoroutine(sell());
     }
 
-    private void setupWeek()
-    {
-        foreach (var obj in enemyUnit.listOBJ.objList)
-        {
-        }
-    }
-
     private IEnumerator sell()
     {
-        if (enemyUnit.player.isWeekEnd)
-        {
-        }
         if (enemyUnit.listOBJ.objList.Count > 0)
         {
             enemyUnit.listOBJ.objList.RemoveAt(enemyUnit.index);
@@ -85,14 +89,17 @@ public class StateMachine : MonoBehaviour
 
             enemyHUD.setMoney(enemyUnit.player.money);
             Destroy(enemyGO);
+
             StartCoroutine(setupBattle());
         }
         else
         {
             Destroy(enemyGO);
-            enemyUnit.player.isWeekEnd = true;
+
             yield break;
         }
+
+        enemyPrefabs.RemoveAt(index);
         yield return new WaitForSeconds(2f);
 
         playerTurn();
@@ -106,7 +113,7 @@ public class StateMachine : MonoBehaviour
         {
             case 1:
 
-                enemyUnit.price -= (int)System.Math.Round((10) + (0.5 * (5)) * enemyUnit.mefiance);
+                enemyUnit.price -= (int)System.Math.Round((10) + (0.5 * (5)) * enemyUnit.mefiance + buffAttack);
                 enemyHUD.updatePrice(enemyUnit.price);
                 break;
 
@@ -115,7 +122,7 @@ public class StateMachine : MonoBehaviour
                 break;
 
             case 3:
-                //next turn atk +5%
+                buffAttack = enemyUnit.price * (5 / 100);
                 break;
 
             case 4:
@@ -130,6 +137,15 @@ public class StateMachine : MonoBehaviour
 
     private IEnumerator enemyTurn()
     {
+        if (state != GameState.EnemyTurn)
+        {
+            yield break;
+        }
+        if (enemyUnit.patience <= 0 || (enemyUnit.mood) <= 0)
+        {
+            Destroy(enemyGO);
+            enemyPrefabs.RemoveAt(index);
+        }
         Debug.Log("ENEMY TURN");
         int rng = Random.Range(1, 7);
         AttackPatern(rng);

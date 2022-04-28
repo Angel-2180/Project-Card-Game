@@ -49,7 +49,7 @@ MonoBehaviour:
   enemyPrefabs: {fileID: 9162981779917063317, guid: 6a16efa5466cb87488966428d282fa2b, type: 3}
   enemyUnit: {fileID: 9162981779917063319, guid: 6a16efa5466cb87488966428d282fa2b, type: 3}
   enemyTransform: {fileID: 0}
-  enemyHUD: {fileID: 0}
+  enemyHUD: {fileID: 9178020804659428794, guid: 20f11a8fae85a1945a0b870fe22c7e56, type: 3}
 --- !u!114 &4650478784334833442
 MonoBehaviour:
   m_ObjectHideFlags: 0

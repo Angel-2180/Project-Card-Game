@@ -13,11 +13,6 @@ public class Card : MonoBehaviour
 
 		if (!isPlayed)
 		{
-			Debug.Log(index);
-			//Instantiate(hollowCircle, transform.position, Quaternion.identity);
-
-			//Debug.Log(gm.slotAvalable[index]);
-
 			transform.position = GameObject.Find("Played Card Slot").transform.position;
 			isPlayed = true;
 			gm.slotAvalable[index] = true;
@@ -27,9 +22,8 @@ public class Card : MonoBehaviour
 
 	void MoveToDiscardPile()
 	{
-		//Instantiate(effect, transform.position, Quaternion.identity);
+		gm.hand.Remove(this);
 		gm.discard.Add(this);
 		gameObject.SetActive(false);
-		//index = 0;
 	}
 }
