@@ -5,13 +5,20 @@ public class DragAndDrop : MonoBehaviour
 {
     public GameObject selectedObject;
 
+    public static DragAndDrop current;
+
+    private void Awake()
+    {
+        current = this;
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             if (selectedObject == null)
             {
-                RaycastHit hit = CastRay();
+                RaycastHit2D hit = CastRay();
 
                 if (hit.collider != null)
                 {
@@ -51,7 +58,7 @@ public class DragAndDrop : MonoBehaviour
         }
     }
 
-    private RaycastHit CastRay()
+    private RaycastHit2D CastRay()
     {
         Vector3 screenMousePosFar = new Vector3(
             Input.mousePosition.x,
@@ -63,11 +70,8 @@ public class DragAndDrop : MonoBehaviour
             Camera.main.nearClipPlane);
         Vector3 worldMousePosFar = Camera.main.ScreenToWorldPoint(screenMousePosFar);
         Vector3 worldMousePosNear = Camera.main.ScreenToWorldPoint(screenMousePosNear);
-        RaycastHit hit;
-        Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out hit);
+        RaycastHit2D hit = Physics2D.Raycast(worldMousePosNear, worldMousePosFar);
 
         return hit;
     }
-
-
 }
