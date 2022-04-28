@@ -15,6 +15,9 @@ public class StateMachine : MonoBehaviour
     public Transform enemyTransform;
 
     public BattleHUD enemyHUD;
+    private GameObject enemyGO;
+
+    private float buffAttack;
 
     public void Start()
     {
@@ -26,7 +29,7 @@ public class StateMachine : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        GameObject enemyGO = Instantiate(enemyPrefabs, enemyTransform);
+        enemyGO = Instantiate(enemyPrefabs, enemyTransform);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
         enemyHUD.setHUD(enemyUnit);
@@ -59,23 +62,52 @@ public class StateMachine : MonoBehaviour
         }
 
         state = GameState.Sell;
+
         StartCoroutine(sell());
+    }
+
+    private void setupWeek()
+    {
+        foreach (var obj in enemyUnit.listOBJ.objList)
+        {
+        }
     }
 
     private IEnumerator sell()
     {
-        enemyUnit.player.money += enemyUnit.objPrice.price;
+        if (enemyUnit.player.isWeekEnd)
+        {
+        }
+        if (enemyUnit.listOBJ.objList.Count > 0)
+        {
+            enemyUnit.listOBJ.objList.RemoveAt(enemyUnit.index);
+            enemyUnit.player.money += enemyUnit.price;
+
+            enemyHUD.setMoney(enemyUnit.player.money);
+            Destroy(enemyGO);
+            StartCoroutine(setupBattle());
+        }
+        else
+        {
+            Destroy(enemyGO);
+            enemyUnit.player.isWeekEnd = true;
+            yield break;
+        }
         yield return new WaitForSeconds(2f);
+
+        playerTurn();
+
+        state = GameState.PlayerTurn;
     }
 
-    private IEnumerator enemyTurn()
+    private void AttackPatern(int rng)
     {
-        int rng = Random.Range(1, 7);
         switch (rng)
         {
             case 1:
 
-                enemyUnit.objPrice.price -= (int)System.Math.Round(Mathf.Lerp(1, 100, Random.Range(0, 1)));
+                enemyUnit.price -= (int)System.Math.Round((10) + (0.5 * (5)) * enemyUnit.mefiance);
+                enemyHUD.updatePrice(enemyUnit.price);
                 break;
 
             case 2:
@@ -91,9 +123,17 @@ public class StateMachine : MonoBehaviour
                 break;
 
             case 5:
-                enemyUnit.player.charisme -= 1 + (enemyUnit.mefiance * 2) + enemyUnit.mefiance / 2;
+                enemyUnit.player.charisme -= 1 + (enemyUnit.mefiance / 2);
                 break;
         }
+    }
+
+    private IEnumerator enemyTurn()
+    {
+        Debug.Log("ENEMY TURN");
+        int rng = Random.Range(1, 7);
+        AttackPatern(rng);
+        Debug.Log(rng);
 
         yield return new WaitForSeconds(2f);
         state = GameState.PlayerTurn;

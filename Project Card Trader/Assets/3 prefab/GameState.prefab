@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4650478784334833440}
   - component: {fileID: 4650478784334833441}
   - component: {fileID: 4650478784334833442}
+  - component: {fileID: 1523186390}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -61,5 +62,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058b43463393cec47a7dfd9f0fdf7af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWeekEnd: 0
   charisme: 0
   money: 50
+  semaine: 0
+--- !u!114 &1523186390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4650478784334833455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4c73bd6479e18e4ca632f3ffe22c28c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objList:
+  - {fileID: 6469774850858433814, guid: 4431eac2a15c9f946a109f6b24cb6d7f, type: 3}
+  - {fileID: 6469774850858433814, guid: 4431eac2a15c9f946a109f6b24cb6d7f, type: 3}

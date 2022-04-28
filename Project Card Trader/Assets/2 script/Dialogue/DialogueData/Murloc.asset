@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc09e28b0a272d94bb505d55203ecaac, type: 3}
+  m_Name: Murloc
+  m_EditorClassIdentifier: 
+  name: Murloc
+  introduction:
+  - sentence: Bien le bonjour ! Besoin je suis ton nouveau conseiller comercial
+  neutral:
+  - sentence: "Conseil de pro : Moins vos produits sont chers, plus votre commerce
+      prosp\xE8re !"
+  happy:
+  - sentence: "Je commence \xE0 vous appr\xE9cier ! La d'ou je viens tu serait beaucoup
+      appr\xE9ci\xE9 !"
+  angry:
+  - sentence: Houla attention ! La d'ou je viens les prix ne sont pas aussi cher
+      !
