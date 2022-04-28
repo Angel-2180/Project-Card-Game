@@ -14,7 +14,7 @@ public class DialogueManager : MonoBehaviour
     public Transform dialogueBox;
     #endregion
 
-    private float moveDistance = 200;
+    private float moveDistance = 400;
     private float moveSppeed = 0.5f;
 
     public static DialogueManager current;
