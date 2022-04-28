@@ -63,7 +63,7 @@ public class CardEffects : MonoBehaviour
     }
     private void MultipliEnergie7()
     {
-        //Debug.Log(stat.player.energie);
+        Debug.Log(stat.player.energie);
         stat.player.energie *= 2;
 
         foreach(Card card in gm.hand)
@@ -72,7 +72,7 @@ public class CardEffects : MonoBehaviour
         }
         gm.hand.Clear();
 
-        //Debug.Log(stat.player.energie);
+        Debug.Log(stat.player.energie);
     }
 
     private void ChooseCardEffects(int numberCardEffect)
