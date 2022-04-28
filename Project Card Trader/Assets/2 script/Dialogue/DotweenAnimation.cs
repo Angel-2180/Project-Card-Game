@@ -77,10 +77,10 @@ public class DotweenAnimation : MonoBehaviour
 
     private void ExitAnimation()
     {
-        transform.DORotateQuaternion(Quaternion.Euler(0, 90, 0), 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
+        transform.DORotateQuaternion(Quaternion.Euler(0, 90, 0), 0.5f).SetEase(Ease.InSine).OnComplete(() =>
         {
             transform.parent.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            transform.DORotateQuaternion(Quaternion.Euler(0, 0, 0), 0.5f).SetEase(Ease.OutBounce).OnComplete(() => 
+            transform.DORotateQuaternion(Quaternion.Euler(0, 180, 0), 0.5f).SetEase(Ease.OutExpo).OnComplete(() => 
             {
                 transform.DOMoveX(transform.position.x - 500, 1).SetEase(Ease.OutFlash);
             });

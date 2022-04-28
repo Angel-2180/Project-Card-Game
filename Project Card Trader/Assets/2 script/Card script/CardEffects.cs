@@ -30,7 +30,7 @@ public class CardEffects : MonoBehaviour
     {
         for (int i = 0; i < stat.player.energie; i++)
         {
-            gm.DrawCard();
+            gm.DrawCard(); 
         }
     }
 
