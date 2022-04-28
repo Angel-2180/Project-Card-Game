@@ -25,6 +25,8 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     public int maxPatience = 15;
 
+    public float mood;
+
     public int mefiance;
 
     public int patience;
@@ -47,19 +49,19 @@ public class Unit : MonoBehaviour
             case 1:
                 wealth = wealthValue.poor;
                 money = Random.Range(50, 150);
-                investisment = Random.Range(money / 2, money * 90 / 100);
+                investisment = Random.Range(money * 25 / 100, money * 45 / 100);
                 break;
 
             case 2:
                 wealth = wealthValue.moderate;
                 money = Random.Range(200, 450);
-                investisment = Random.Range(money * 40 / 100, money * 80 / 100);
+                investisment = Random.Range(money * 20 / 100, money * 40 / 100);
                 break;
 
             case 3:
                 wealth = wealthValue.rich;
                 money = Random.Range(500, 1000);
-                investisment = Random.Range(money / 4, money * 60 / 100);
+                investisment = Random.Range(money * 15 / 100, money * 30 / 100);
                 break;
         }
         listOBJ = sellObjList.current;
@@ -68,11 +70,16 @@ public class Unit : MonoBehaviour
         maxCalm = Random.Range(0f, 1f);
         hapiness = Random.Range(0, maxHapiness);
         calm = Random.Range(0, maxCalm);
+        mood = hapiness * calm;
         patience = UnityEngine.Random.Range(11, maxPatience + 1);
 
         if (listOBJ.objList.Count > 0)
         {
-            price = (int)Math.Round(listOBJ.objList[UnityEngine.Random.Range(0, listOBJ.objList.Count)].price * hapiness * calm);
+            price = (int)Math.Round(listOBJ.objList[UnityEngine.Random.Range(0, listOBJ.objList.Count)].price * (hapiness * calm));
+            if (price > investisment)
+            {
+                price = investisment;
+            }
             index = UnityEngine.Random.Range(0, listOBJ.objList.Count);
         }
         else
