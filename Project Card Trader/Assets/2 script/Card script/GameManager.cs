@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int nbStartCard;
 
     public List<Card> discard;
+    public List<Card> banCard;
 
     private void Start()
     {

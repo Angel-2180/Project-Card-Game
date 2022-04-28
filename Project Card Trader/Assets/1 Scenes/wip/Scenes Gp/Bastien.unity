@@ -584,7 +584,7 @@ MonoBehaviour:
   - {fileID: 9162981779917063317, guid: 6a16efa5466cb87488966428d282fa2b, type: 3}
   enemyUnit: {fileID: 9162981779917063319, guid: 6a16efa5466cb87488966428d282fa2b, type: 3}
   enemyTransform: {fileID: 1537311394}
-  enemyHUD: {fileID: 0}
+  enemyHUD: {fileID: 2047357372}
 --- !u!114 &471130333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2670,3 +2670,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a020168598f135468c7825da05511c6, type: 3}
+--- !u!114 &2047357372 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 733008881, guid: 20f11a8fae85a1945a0b870fe22c7e56, type: 3}
+  m_PrefabInstance: {fileID: 1071057432}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e468b75b43899ae4baefece602fce714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

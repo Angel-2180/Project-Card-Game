@@ -9,13 +9,12 @@ public class CardEffects : MonoBehaviour
     avec le numero de la carte
     ex une carte qui fait piocher : private void DrawOne1()*/
 
-    /* TEMPORAIRE MODIFIER POUR FAIRE DES TEST A DELET APRES*/
-    private int oui = 7;
-    /*---------------------------------------------------*/
 
     private static Unit stat;
     [SerializeField] GameManager gm;
-    
+
+    /*Valeurs pour les tours d'apres*/
+    public int stayEnergie;
 
     public static void SearchPlayer()       /* ON NE TOUCHE PAS */
     {
@@ -24,9 +23,7 @@ public class CardEffects : MonoBehaviour
 
     private void EnergiePlus1()
     {
-        //Debug.Log(stat.player.energie);
         stat.player.energie *= 2;
-        //Debug.Log(stat.player.energie);
     }
 
     private void DrawOne2()
@@ -39,16 +36,12 @@ public class CardEffects : MonoBehaviour
 
     private void LowAngry3()
     {
-        //Debug.Log(stat.calm);
         stat.calm = stat.calm - (stat.calm * 10 / 100);
-        //Debug.Log(stat.calm);
     }
 
     private void UpHappy4()
     {
-        //Debug.Log(stat.hapiness);
         stat.hapiness = stat.hapiness + (stat.hapiness * 10 / 100);
-        //Debug.Log(stat.hapiness);
     }
 
     private void DrawTwo5()
@@ -63,7 +56,6 @@ public class CardEffects : MonoBehaviour
     }
     private void MultipliEnergie7()
     {
-        Debug.Log(stat.player.energie);
         stat.player.energie *= 2;
 
         foreach(Card card in gm.hand)
@@ -72,7 +64,28 @@ public class CardEffects : MonoBehaviour
         }
         gm.hand.Clear();
 
-        Debug.Log(stat.player.energie);
+    }
+
+    private void UpInvestissement8()
+    {
+        stat.investisment = stat.investisment + (stat.investisment * 15 / 100);
+    }
+
+    private void HappinessUpInvestDown9()
+    {
+        stat.hapiness = stat.hapiness + (stat.hapiness / 2);
+        stat.investisment = stat.investisment - (stat.investisment / 2);
+    }
+
+    private void ConservEnergie16()
+    {
+        stayEnergie = stat.player.energie;
+    }
+
+    private void SellPriceUp17()
+    {
+        stat.price *= 2;
+        stat.patience -= 3;     
     }
 
     private void ChooseCardEffects(int numberCardEffect)
@@ -107,11 +120,11 @@ public class CardEffects : MonoBehaviour
                 break;
 
             case 8:
-
+                UpInvestissement8();
                 break;
 
             case 9:
-
+                HappinessUpInvestDown9();
                 break;
 
             case 10:
@@ -133,6 +146,37 @@ public class CardEffects : MonoBehaviour
             case 14:
 
                 break;
+            case 15:
+
+                break;
+            case 16:
+                ConservEnergie16(); /* théorie ca marche manque les modifications dans le stateMachine*/
+                break;
+            case 17:
+                SellPriceUp17();
+                break;
+            case 18:
+
+                break;
+            case 19:
+
+                break;
+            case 20:
+
+                break;
+            case 21:
+
+                break;
+            case 22:
+
+                break;
+            case 23:
+
+                break;
+            case 24:
+
+                break;
+
 
         }
 
@@ -142,7 +186,7 @@ public class CardEffects : MonoBehaviour
         
         if(Input.GetKeyDown(KeyCode.U)) /*permet de tester les fonction une par une avec une input*/
         {
-            ChooseCardEffects(oui);
+            ChooseCardEffects(9);
         }
     }
 }

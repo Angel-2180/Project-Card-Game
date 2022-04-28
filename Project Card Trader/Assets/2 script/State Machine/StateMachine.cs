@@ -35,8 +35,7 @@ public class StateMachine : MonoBehaviour
 
     private IEnumerator setupBattle()
     {
-        index = Random.Range(0, enemyPrefabs.Count + 1);
-        Debug.Log("index " + index);
+        index = Random.Range(0, enemyPrefabs.Count);
         yield return new WaitForSeconds(2f);
 
         enemyGO = Instantiate(enemyPrefabs[index], enemyTransform);
