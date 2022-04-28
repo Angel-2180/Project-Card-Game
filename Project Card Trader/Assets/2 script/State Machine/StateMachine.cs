@@ -37,11 +37,11 @@ public class StateMachine : MonoBehaviour
     {
         index = Random.Range(0, enemyPrefabs.Count + 1);
         Debug.Log("index " + index);
-
         yield return new WaitForSeconds(2f);
 
         enemyGO = Instantiate(enemyPrefabs[index], enemyTransform);
         enemyUnit = enemyGO.GetComponent<Unit>();
+        CardEffects.SearchPlayer();
 
         enemyHUD.setHUD(enemyUnit);
 
