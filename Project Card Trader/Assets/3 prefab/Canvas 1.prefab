@@ -307,9 +307,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'investement /
-
-'
+  m_Text: 124
 --- !u!1 &9178020803661900983
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,7 +642,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Wealth
+  m_Text: poor
 --- !u!1 &9178020803945320844
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,9 +721,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'price
-
-'
+  m_Text: 0
 --- !u!1 &9178020804067656058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1025,7 +1021,7 @@ GameObject:
   - component: {fileID: 9178020804659428792}
   - component: {fileID: 9178020804659428793}
   - component: {fileID: 9178020804659428790}
-  - component: {fileID: 9178020804659428794}
+  - component: {fileID: 733008881}
   m_Layer: 5
   m_Name: Canvas 1
   m_TagString: Untagged
@@ -1114,7 +1110,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &9178020804659428794
+--- !u!114 &733008881
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1130,7 +1126,7 @@ MonoBehaviour:
   investmentText: {fileID: 9178020803626823063}
   priceText: {fileID: 9178020803945320846}
   patienceText: {fileID: 9178020804821906924}
-  customerName: {fileID: 7872483533072428985, guid: dbd75b1d29824f44ca57531dc8067258, type: 3}
+  customerName: {fileID: 0}
   monetyText: {fileID: 9178020804874629321}
   moodSlider: {fileID: 9007445493497345035}
 --- !u!1 &9178020804690973696
@@ -1362,9 +1358,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '5
-
-'
+  m_Text: 11
 --- !u!1 &9178020804836660485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,7 +1591,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Money: '
+  m_Text: 'Money: 50'
 --- !u!1 &9178020804907030086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,6 +1693,14 @@ PrefabInstance:
     - target: {fileID: 170642798197855767, guid: 0424a84dc2a5d5d4d85337f79b7e04c7, type: 3}
       propertyPath: m_Color.r
       value: 0.116767526
+      objectReference: {fileID: 0}
+    - target: {fileID: 170642798327169721, guid: 0424a84dc2a5d5d4d85337f79b7e04c7, type: 3}
+      propertyPath: m_Value
+      value: 0.015406779
+      objectReference: {fileID: 0}
+    - target: {fileID: 170642798327169721, guid: 0424a84dc2a5d5d4d85337f79b7e04c7, type: 3}
+      propertyPath: m_MaxValue
+      value: 0.4633788
       objectReference: {fileID: 0}
     - target: {fileID: 170642798327169721, guid: 0424a84dc2a5d5d4d85337f79b7e04c7, type: 3}
       propertyPath: m_Interactable
