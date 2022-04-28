@@ -6,6 +6,7 @@ public class Card : MonoBehaviour
 {
     public int index;
     public bool isPlayed;
+	public bool isCost = true;
 
 	public GameManager gm;
 	private void OnMouseDown()
@@ -26,4 +27,11 @@ public class Card : MonoBehaviour
 		gm.discard.Add(this);
 		gameObject.SetActive(false);
 	}
+
+	public void BanCard()
+    {
+		gm.hand.Remove(this);
+		gm.banCard.Add(this);
+		gameObject.SetActive(false);
+    }
 }

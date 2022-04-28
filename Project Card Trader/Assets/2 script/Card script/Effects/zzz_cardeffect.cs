@@ -24,10 +24,7 @@ public class zzz_cardeffect : MonoBehaviour
         //}
     }
 
-    private void CardDrawSix13()
-    {
-        gm.DrawCard(); gm.DrawCard(); gm.DrawCard(); gm.DrawCard(); gm.DrawCard(); gm.DrawCard();
-    }
+    
 
 
     private void ResetMood14()

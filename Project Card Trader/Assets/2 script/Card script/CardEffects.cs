@@ -50,9 +50,9 @@ public class CardEffects : MonoBehaviour
         gm.DrawCard();
     }
 
-    private void GainEnergieDiscard6()
+    private void DontDiscardHand6()
     {
-
+        gm.discardHandEndTurn = false;
     }
     private void MultipliEnergie7()
     {
@@ -63,9 +63,7 @@ public class CardEffects : MonoBehaviour
             gm.discard.Add(card);
         }
         gm.hand.Clear();
-
     }
-
     private void UpInvestissement8()
     {
         stat.investisment = stat.investisment + (stat.investisment * 15 / 100);
@@ -77,6 +75,40 @@ public class CardEffects : MonoBehaviour
         stat.investisment = stat.investisment - (stat.investisment / 2);
     }
 
+    private void UpInvestDownPatience10()
+    {
+        stat.investisment += stat.investisment* 50 / 100;
+        stat.patience -= 1;
+    }
+
+    private void PlusCharOnDraw11()
+    {
+        stat.player.charisme += (1 * gm.nbCardBan);
+    }
+    private void PlusHappinessOnDraw12()
+    {
+        stat.hapiness += ((stat.hapiness * 5 /100) * gm.nbCardDraw);
+    }
+
+    private void CardDrawSix13()
+    {
+        for(int i = 0; i < 5; i++ )
+        {
+            gm.DrawCard();
+        }
+    }
+    private void ResetMood14()          /**/
+    {
+        stat.calm = 0.5f;
+        stat.hapiness = 100;
+    }
+    private void DoublePriceAndNullPatience15()
+    {
+        int i = Random.Range(1, 3);
+        if (i == 1) { stat.price *= 2; }
+        else { stat.calm = 0; }
+    }
+
     private void ConservEnergie16()
     {
         stayEnergie = stat.player.energie;
@@ -86,6 +118,27 @@ public class CardEffects : MonoBehaviour
     {
         stat.price *= 2;
         stat.patience -= 3;     
+    }
+
+    private void DoublePriceAndNullPatience18()
+    {
+        stat.price *= 2;
+        stat.patience = 0;  /* a confirmer*/
+    }
+
+    private void IncrementPatienceAndNullInvest19()
+    {
+        stat.patience += 2;
+        //stat.patience = patienceStart;
+    }
+
+    private void DrawCardPlusInvest21()
+    {
+        stat.investisment += (stat.investisment * 7 / 100) * gm.nbCardDraw;
+    }
+    private void DoublePrice22()
+    {   
+        stat.price *= 2;
     }
 
     private void ChooseCardEffects(int numberCardEffect)
@@ -112,7 +165,7 @@ public class CardEffects : MonoBehaviour
                 break;
 
             case 6:
-                GainEnergieDiscard6();
+                DontDiscardHand6();
                 break;
 
             case 7:
@@ -128,26 +181,26 @@ public class CardEffects : MonoBehaviour
                 break;
 
             case 10:
-
+                UpInvestDownPatience10();
                 break;
 
             case 11:
-
+                PlusCharOnDraw11();
                 break;
 
             case 12:
-
+                PlusHappinessOnDraw12();
                 break;
 
             case 13:
-
+                CardDrawSix13();
                 break;
 
             case 14:
-
+                ResetMood14();
                 break;
             case 15:
-
+                DoublePriceAndNullPatience15();
                 break;
             case 16:
                 ConservEnergie16(); /* théorie ca marche manque les modifications dans le stateMachine*/
@@ -156,28 +209,17 @@ public class CardEffects : MonoBehaviour
                 SellPriceUp17();
                 break;
             case 18:
-
+                DoublePriceAndNullPatience18();
                 break;
             case 19:
-
-                break;
-            case 20:
-
+                IncrementPatienceAndNullInvest19();
                 break;
             case 21:
-
+                DrawCardPlusInvest21();
                 break;
             case 22:
-
+                DoublePrice22();
                 break;
-            case 23:
-
-                break;
-            case 24:
-
-                break;
-
-
         }
 
     }
