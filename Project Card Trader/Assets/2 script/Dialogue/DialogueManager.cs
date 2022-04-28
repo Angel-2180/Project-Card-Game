@@ -14,10 +14,12 @@ public class DialogueManager : MonoBehaviour
     public Transform dialogueBox;
     #endregion
 
-    private float moveDistance = 300;
+    private float moveDistance = 200;
     private float moveSppeed = 0.5f;
 
     public static DialogueManager current;
+
+    public bool isPlayingDialogue;
 
     //public Animator animator;
     private Queue<DialogueData.Data> sentences;
@@ -48,6 +50,7 @@ public class DialogueManager : MonoBehaviour
     {
         //On demarre l'animation d'entree de la boite de dialogue
         dialogueBox.DOMove(dialogueBox.position + Vector3.up * moveDistance, moveSppeed).SetEase(Ease.InOutSine);
+        isPlayingDialogue = true;
 
         //dialogueBox.eulerAngles = new Vector3(0, 0, -5);
         //dialogueBox.DORotate(dialogueBox.eulerAngles + new Vector3(0, 0, 10), 0.05f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
@@ -115,6 +118,7 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()//On met fin au dialogue 
     {
         FindObjectOfType<DialogueTrigger>()._trigger = false;
+        isPlayingDialogue = false;
         //On enleve la boite de dialogue de l'ecran
         dialogueBox.DOMove(dialogueBox.position - Vector3.up * moveDistance, moveSppeed).SetEase(Ease.InOutSine);
         //On arrete toutes les couroutines

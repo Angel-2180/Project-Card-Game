@@ -19,7 +19,7 @@ public class BattleHUD : MonoBehaviour
         WealthText.text = unit.wealth.ToString();
         investmentText.text = unit.investisment.ToString();
         patienceText.text = unit.patience.ToString();
-        customerName.text = unit.name;
+        //customerName.text = unit.name;
         priceText.text = unit.price.ToString();
         monetyText.text = "Money: " + unit.player.money.ToString();
         moodSlider.maxValue = unit.maxHapiness * unit.maxCalm;
