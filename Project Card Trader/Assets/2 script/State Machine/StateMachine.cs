@@ -17,6 +17,7 @@ public class StateMachine : MonoBehaviour
     public List<GameObject> cpyEnemyPrefabs;
     public Unit enemyUnit;
     public Transform enemyTransform;
+    public CardEffects effects;
 
     public BattleHUD enemyHUD;
     private GameObject enemyGO;
@@ -64,6 +65,9 @@ public class StateMachine : MonoBehaviour
 
     private void playerTurn()
     {
+        //PLAY SOUND
+        AudioManager_SE.instance.Play_Event_PlayerTurn();
+
         enemyUnit.player.energie = enemyUnit.player.maxEnergie;
         Debug.Log("PLAYER TURN");
         gm.DrawCardFirstTurn();
@@ -76,12 +80,17 @@ public class StateMachine : MonoBehaviour
         {
             return;
         }
+
+        gm.nbCardPlay = 0;
         gm.DiscardHand();
 
         enemyUnit.patience -= 1;
         enemyHUD.updatePatience(enemyUnit.patience);
         state = GameState.EnemyTurn;
         StartCoroutine(enemyTurn());
+
+        // PLAY  SOUND
+        AudioManager_SE.instance.Play_Event_EndTurn();
     }
 
     public void OnDeal()
@@ -90,6 +99,11 @@ public class StateMachine : MonoBehaviour
         {
             return;
         }
+
+        //PLAY SOUND
+        AudioManager_SE.instance.Play_Event_DealMoney();
+        int i = Random.Range(1, 4);
+        if (i == 1) { AudioManager_SE.instance.Play_Event_DealVO(); }
 
         state = GameState.Sell;
         if (impot.isTimeUp)
@@ -172,6 +186,9 @@ public class StateMachine : MonoBehaviour
                 if (enemyUnit.price > 0)
                 {
                     enemyUnit.price -= (int)System.Math.Round((10) + (0.5 * (5)) * enemyUnit.mefiance + buffAttack);
+
+                    // PLAY  SOUND
+                    AudioManager_SE.instance.Play_Battle_SFX_Buff();
                 }
                 else
                 {
@@ -182,24 +199,32 @@ public class StateMachine : MonoBehaviour
 
             case 2:
                 //atk2 loose 1 patience per card played
+                enemyUnit.patience -= gm.nbCardPlay;
+
+                // PLAY  SOUND
+                AudioManager_SE.instance.Play_Battle_SFX_Debuff();
+
                 break;
 
             case 3:
                 buffAttack = enemyUnit.price * (5 / 100);
+                // PLAY  SOUND
+                AudioManager_SE.instance.Play_Battle_SFX_Buff();
                 break;
 
             case 4:
-                //add 1 energy to (hopefully) all card
-                break;
-
-            case 5:
                 enemyUnit.player.charisme -= 1 + (enemyUnit.mefiance / 2);
+                // PLAY  SOUND
+                AudioManager_SE.instance.Play_Battle_SFX_Debuff();
                 break;
         }
     }
 
     private IEnumerator enemyTurn()
     {
+        // PLAY  SOUND
+        AudioManager_SE.instance.Play_Event_EnemyTurn();
+
         if (state != GameState.EnemyTurn)
         {
             yield break;
@@ -214,7 +239,7 @@ public class StateMachine : MonoBehaviour
             yield break;
         }
         Debug.Log("ENEMY TURN");
-        int rng = Random.Range(1, 5);
+        int rng = Random.Range(1, 4);
         AttackPatern(rng);
         Debug.Log(rng);
 

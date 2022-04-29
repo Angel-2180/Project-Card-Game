@@ -12,13 +12,14 @@ public class CardEffects : MonoBehaviour
     public static Unit stat;
     [SerializeField] private GameManager gm;
 
-    public BattleHUD hud;
+    public static BattleHUD hud;
 
     /*Valeurs pour les tours d'apres*/
     public int stayEnergie;
 
     public static void SearchPlayer()       /* ON NE TOUCHE PAS */
     {
+        hud = FindObjectOfType<BattleHUD>();
         stat = FindObjectOfType<Unit>();
         Debug.Log(stat.name);
     }
@@ -151,92 +152,115 @@ public class CardEffects : MonoBehaviour
 
     public void ChooseCardEffects(int numberCardEffect)
     {
+        Debug.Log(hud.gameObject);
         switch (numberCardEffect)
         {
             case 1:
                 EnergiePlus1();
+                hud.setHUD(stat);
                 break;
 
             case 2:
                 DrawOne2();
+                hud.setHUD(stat);
                 break;
 
             case 3:
                 LowAngry3();
+                hud.setHUD(stat);
                 break;
 
             case 4:
                 UpHappy4();
+                hud.setHUD(stat);
                 break;
 
             case 5:
                 DrawTwo5();
+                hud.setHUD(stat);
                 break;
 
             case 6:
                 DontDiscardHand6();
+                hud.setHUD(stat);
                 break;
 
             case 7:
                 MultipliEnergie7();
+                hud.setHUD(stat);
                 break;
 
             case 8:
                 UpInvestissement8();
+                hud.setHUD(stat);
                 break;
 
             case 9:
                 HappinessUpInvestDown9();
+                hud.setHUD(stat);
                 break;
 
             case 10:
                 UpInvestDownPatience10();
+                hud.setHUD(stat);
                 break;
 
             case 11:
                 PlusCharOnDraw11();
+                hud.setHUD(stat);
                 break;
 
             case 12:
                 PlusHappinessOnDraw12();
+                hud.setHUD(stat);
                 break;
 
             case 13:
                 CardDrawSix13();
+                hud.setHUD(stat);
                 break;
 
             case 14:
                 ResetMood14();
+                hud.setHUD(stat);
                 break;
 
             case 15:
                 DoublePriceAndNullPatience15();
+                hud.setHUD(stat);
                 break;
 
             case 16:
                 ConservEnergie16(); /* théorie ca marche manque les modifications dans le stateMachine*/
+                hud.setHUD(stat);
                 break;
 
             case 17:
                 SellPriceUp17();
+                hud.setHUD(stat);
                 break;
 
             case 18:
                 DoublePriceAndNullPatience18();
+                hud.setHUD(stat);
                 break;
 
             case 19:
                 IncrementPatienceAndNullInvest19();
+                hud.setHUD(stat);
                 break;
 
             case 21:
                 DrawCardPlusInvest21();
+                hud.setHUD(stat);
                 break;
 
             case 22:
                 DoublePrice22();
+                hud.setHUD(stat);
                 break;
         }
+
         //Debug.Log("Hapiness " + stat.hapiness);
         //Debug.Log("Calm " + stat.calm);
         //Debug.Log("Price " + stat.price);
@@ -252,7 +276,6 @@ public class CardEffects : MonoBehaviour
             {
                 stat.price = stat.investisment;
             }
-            hud.setHUD(stat);
         }
         //if(Input.GetKeyDown(KeyCode.U)) /*permet de tester les fonction une par une avec une input*/
         //{
