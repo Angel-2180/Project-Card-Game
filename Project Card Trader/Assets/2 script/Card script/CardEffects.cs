@@ -271,5 +271,7 @@ public class CardEffects : MonoBehaviour
             {
                 stat.price = stat.investisment;
             }
+        }
+
     }
 }

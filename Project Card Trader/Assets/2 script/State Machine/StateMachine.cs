@@ -20,6 +20,7 @@ public class StateMachine : MonoBehaviour
     public CardEffects effects;
 
     public BattleHUD enemyHUD;
+    [SerializeField]
     private GameObject enemyGO;
     private Impot impot;
     private sellObjList list;
@@ -80,10 +81,14 @@ public class StateMachine : MonoBehaviour
         {
             return;
         }
-
+        enemyHUD.setHUD(enemyUnit);
+        if(gm.deck.Count <= 1)
+        {
+            gm.DiscardToDeck();
+        }
         gm.nbCardPlay = 0;
         gm.DiscardHand();
-
+        enemyUnit.player.energie = enemyUnit.player.maxEnergie;
         enemyUnit.patience -= 1;
         enemyHUD.updatePatience(enemyUnit.patience);
         state = GameState.EnemyTurn;
@@ -99,7 +104,7 @@ public class StateMachine : MonoBehaviour
         {
             return;
         }
-
+        enemyHUD.setHUD(enemyUnit);
         //PLAY SOUND
         AudioManager_SE.instance.Play_Event_DealMoney();
         int i = Random.Range(1, 4);
@@ -174,6 +179,7 @@ public class StateMachine : MonoBehaviour
         yield return new WaitForSeconds(2f);
         enemyUnit.player.money -= impot.impotFinal;
         enemyHUD.updatePrice(enemyUnit.price);
+        enemyUnit.player.energie = enemyUnit.player.maxEnergie;
         state = GameState.PlayerTurn;
         playerTurn();
     }
@@ -224,6 +230,8 @@ public class StateMachine : MonoBehaviour
     {
         // PLAY  SOUND
         AudioManager_SE.instance.Play_Event_EnemyTurn();
+        
+        enemyGO.GetComponentInChildren<DotweenAnimation>().RandoAnim();
 
         if (state != GameState.EnemyTurn)
         {

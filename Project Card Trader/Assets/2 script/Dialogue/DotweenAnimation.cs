@@ -56,17 +56,25 @@ public class DotweenAnimation : MonoBehaviour
     private void Awake()
     {
         ArriveAnimation();
+        // ArriveAnimation();
     }
 
-    private void Update()
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Space) && DialogueManager.current.isPlayingDialogue)
+    //    {
+    //        string rdm = actionRandom[animIndex];
+    //        Invoke(rdm, 0);
+    //        print(rdm);
+    //    }
+    //}
+
+    public void RandoAnim()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && DialogueManager.current.isPlayingDialogue)
-        {
-            string rdm = actionRandom[animIndex];
-            Invoke(rdm, 0);
-            print(rdm);
-        }
+        string rdm = actionRandom[Random.Range(0, actionRandom.Count)];
+        Invoke(rdm, 0);
     }
+        
 
     private void ArriveAnimation()
     {
@@ -83,7 +91,7 @@ public class DotweenAnimation : MonoBehaviour
         yield return new WaitForSeconds(1);
         transform.DORotateQuaternion(Quaternion.Euler(0, 0, 0), 1).SetEase(Ease.OutBounce);
         yield return new WaitForSeconds(3);
-        ExitAnimation();
+        
     }
 
     private void ExitAnimation()

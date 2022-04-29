@@ -14,6 +14,7 @@ public class BattleHUD : MonoBehaviour
     public Text nbrObj;
     public Text nbrDedck;
     public Text nbrdiscard;
+    public Text truc;
 
     public Slider moodSlider;
     public static GameManager gm;
@@ -28,6 +29,7 @@ public class BattleHUD : MonoBehaviour
         nbrObj.text = sellObjList.current.objList.Count.ToString();
         nbrDedck.text = "";
    nbrdiscard.text =  "";
+        truc.text = "";
     moodSlider.maxValue = 10;
         moodSlider.value = 0;
     }
@@ -43,7 +45,7 @@ public class BattleHUD : MonoBehaviour
         nbrObj.text = unit.listOBJ.objList.Count.ToString();
         nbrDedck.text = gm.deck.Count.ToString();
         nbrdiscard.text = gm.discard.Count.ToString();
-        
+        truc.text = CardEffects.stat.player.energie.ToString() + " / " + CardEffects.stat.player.maxEnergie.ToString();
         moodSlider.maxValue = unit.maxHapiness * unit.maxCalm;
         moodSlider.value = unit.hapiness * unit.calm;
     }
@@ -58,6 +60,7 @@ public class BattleHUD : MonoBehaviour
         nbrObj.text = sellObjList.current.objList.Count.ToString();
         nbrDedck.text = "";
         nbrdiscard.text = "";
+        truc.text = "";
         moodSlider.maxValue = 10;
         moodSlider.value = 0;
     }

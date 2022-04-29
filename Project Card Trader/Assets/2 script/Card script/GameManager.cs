@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
                     slotAvalable[i] = false;
 
                     // PLAY  SOUND
-                    AudioManager_SE.instance.Play_Card_Draw();
+                    //AudioManager_SE.instance.Play_Card_Draw();
                 }
             }
         }
