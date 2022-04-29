@@ -8,11 +8,9 @@ using DG.Tweening;
 public class Impot : MonoBehaviour
 {
     public Slider slider;
-    public TMP_Text[] impots;
-    public TMP_Text reste;
+    public TMP_Text impots;
 
     public List<string> phraseBullshit;
-    public List<int> argent;
 
     public float daySpeed = 1;
     public float maxValue = 100;
@@ -24,15 +22,13 @@ public class Impot : MonoBehaviour
 
     public static Impot current;
 
+    public GameObject canvas;
+
     private void Awake()
     {
         current = this;
         slider.maxValue = maxValue;
         slider.value = maxValue;
-        //GetComponentInChildren<CanvasGroup>().alpha = 0;
-        //GetComponentInChildren<CanvasGroup>().DOFade(1, 2);
-        //transform.GetChild(0).localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        //transform.GetChild(0).DOScale(1, 2).SetEase(Ease.OutBack);
     }
 
     private void Update()
@@ -44,6 +40,11 @@ public class Impot : MonoBehaviour
         else
         {
             UpdateSlider();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Pay();
         }
     }
 
@@ -57,5 +58,15 @@ public class Impot : MonoBehaviour
         impotMin = days;
         impotMax = days + 50;
         impotFinal = Random.Range(impotMin, impotMax);
+
+        impots.text = -impotFinal + " " + phraseBullshit[Random.Range(0, phraseBullshit.Count)];
+
+        canvas.GetComponentInChildren<CanvasGroup>().alpha = 0;
+        canvas.GetComponentInChildren<CanvasGroup>().DOFade(1, 2);
+        canvas.transform.GetChild(0).localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        canvas.transform.GetChild(0).DOScale(1, 2).SetEase(Ease.OutBack).OnComplete(() => 
+        {
+            canvas.GetComponentInChildren<CanvasGroup>().DOFade(0, 2);
+        });
     }
 }

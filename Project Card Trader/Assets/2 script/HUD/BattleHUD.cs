@@ -11,17 +11,24 @@ public class BattleHUD : MonoBehaviour
     public Text patienceText;
     public Text customerName;
     public Text monetyText;
-    public Slider moodSlider;
+    public Text nbrObj;
+    public Text nbrDedck;
+    public Text nbrdiscard;
 
+    public Slider moodSlider;
+    public static GameManager gm;
     private void Awake()
     {
+        gm = FindObjectOfType<GameManager>();
         WealthText.text = "";
         investmentText.text = "";
         patienceText.text = "";
         customerName.text = "";
         priceText.text = "";
-
-        moodSlider.maxValue = 10;
+        nbrObj.text = sellObjList.current.objList.Count.ToString();
+        nbrDedck.text = "";
+   nbrdiscard.text =  "";
+    moodSlider.maxValue = 10;
         moodSlider.value = 0;
     }
 
@@ -32,7 +39,11 @@ public class BattleHUD : MonoBehaviour
         patienceText.text = unit.patience.ToString();
         customerName.text = unit.name;
         priceText.text = unit.price.ToString();
-        monetyText.text = "Money: " + unit.player.money.ToString();
+        monetyText.text = unit.player.money.ToString();
+        nbrObj.text = unit.listOBJ.objList.Count.ToString();
+        nbrDedck.text = gm.deck.Count.ToString();
+        nbrdiscard.text = gm.discard.Count.ToString();
+        
         moodSlider.maxValue = unit.maxHapiness * unit.maxCalm;
         moodSlider.value = unit.hapiness * unit.calm;
     }
@@ -44,7 +55,9 @@ public class BattleHUD : MonoBehaviour
         patienceText.text = "";
         customerName.text = "";
         priceText.text = "";
-
+        nbrObj.text = sellObjList.current.objList.Count.ToString();
+        nbrDedck.text = "";
+        nbrdiscard.text = "";
         moodSlider.maxValue = 10;
         moodSlider.value = 0;
     }
@@ -61,7 +74,7 @@ public class BattleHUD : MonoBehaviour
 
     public void setMoney(int money)
     {
-        monetyText.text = "Money: " + money.ToString();
+        monetyText.text = money.ToString();
     }
 
     public void setInvestement(int investment)

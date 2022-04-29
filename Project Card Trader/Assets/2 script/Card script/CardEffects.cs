@@ -12,13 +12,14 @@ public class CardEffects : MonoBehaviour
     public static Unit stat;
     [SerializeField] private GameManager gm;
 
-    public BattleHUD hud;
+    public static BattleHUD hud;
 
     /*Valeurs pour les tours d'apres*/
     public int stayEnergie;
 
     public static void SearchPlayer()       /* ON NE TOUCHE PAS */
     {
+        hud = FindObjectOfType<BattleHUD>();
         stat = FindObjectOfType<Unit>();
         Debug.Log(stat.name);
     }
@@ -237,6 +238,7 @@ public class CardEffects : MonoBehaviour
                 DoublePrice22();
                 break;
         }
+                hud.setHUD(stat);
         //Debug.Log("Hapiness " + stat.hapiness);
         //Debug.Log("Calm " + stat.calm);
         //Debug.Log("Price " + stat.price);
@@ -252,7 +254,7 @@ public class CardEffects : MonoBehaviour
             {
                 stat.price = stat.investisment;
             }
-            hud.setHUD(stat);
+           
         }
         //if(Input.GetKeyDown(KeyCode.U)) /*permet de tester les fonction une par une avec une input*/
         //{
