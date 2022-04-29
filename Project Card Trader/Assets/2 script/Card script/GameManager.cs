@@ -86,6 +86,10 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            hand[1].transform.position = GameObject.Find("Played Card Slot").transform.position;
+        }
         DrawCardFirstTurn();
 
         if (Input.GetKeyDown(KeyCode.J))

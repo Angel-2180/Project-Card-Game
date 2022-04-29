@@ -141,7 +141,7 @@ public class CardEffects : MonoBehaviour
         stat.price *= 2;
     }
 
-    private void ChooseCardEffects(int numberCardEffect)
+    public void ChooseCardEffects(int numberCardEffect)
     {
         switch (numberCardEffect)
         {
