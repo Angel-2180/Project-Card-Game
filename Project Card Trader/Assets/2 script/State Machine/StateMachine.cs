@@ -13,35 +13,42 @@ public class StateMachine : MonoBehaviour
     public GameState state;
 
     public List<GameObject> enemyPrefabs;
+    public List<GameObject> cpyEnemyPrefabs;
     public Unit enemyUnit;
     public Transform enemyTransform;
 
     public BattleHUD enemyHUD;
     private GameObject enemyGO;
+    private Impot impot;
+    private sellObjList list;
 
     private float buffAttack;
     private int index;
 
     private void Awake()
     {
+        foreach (GameObject enemy in enemyPrefabs)
+        {
+            cpyEnemyPrefabs.Add(enemy);
+        }
+        list = sellObjList.current;
         current = this;
     }
 
     public void Start()
     {
+        impot = Impot.current;
         state = GameState.Start;
         StartCoroutine(setupBattle());
     }
 
     private IEnumerator setupBattle()
     {
-
         if (enemyPrefabs.Count > 0)
         {
-            index = Random.Range(0, enemyPrefabs.Count);
+            index = Random.Range(0, enemyPrefabs.Count - 1);
             Debug.Log("index " + index);
             yield return new WaitForSeconds(2f);
-
 
             enemyGO = Instantiate(enemyPrefabs[index], enemyTransform);
             enemyUnit = enemyGO.GetComponent<Unit>();
@@ -80,38 +87,76 @@ public class StateMachine : MonoBehaviour
         }
 
         state = GameState.Sell;
+        if (impot.isTimeUp)
+        {
+            impot.slider.value = impot.maxValue;
 
-        StartCoroutine(sell());
+            StartCoroutine(setupDay());
+            StartCoroutine(sell());
+            impot.isTimeUp = false;
+        }
+        else
+        {
+            StartCoroutine(sell());
+        }
     }
 
     private IEnumerator sell()
     {
-        if (enemyUnit.listOBJ.objList.Count > 0)
+        Debug.Log(list.objList.Count);
+        if (state != GameState.Sell)
         {
-            enemyUnit.listOBJ.objList.RemoveAt(enemyUnit.index);
+            yield break;
+        }
+
+        if (list.objList.Count > 0 && !impot.isTimeUp)
+        {
+            Debug.Log("HERE");
+            list.objList.RemoveAt(enemyUnit.index);
             enemyUnit.player.money += enemyUnit.price;
 
             enemyHUD.setMoney(enemyUnit.player.money);
             Destroy(enemyGO);
-
-            StartCoroutine(setupBattle());
+        }
+        if (list.objList.Count == 0)
+        {
+            Debug.Log("break");
         }
         else
         {
-            Destroy(enemyGO);
-
-            yield break;
+            StartCoroutine(setupBattle());
         }
+
         enemyHUD.resetHUD();
         if (enemyPrefabs.Count > 0)
         {
             enemyPrefabs.RemoveAt(index);
         }
         yield return new WaitForSeconds(2f);
-
-        playerTurn();
-
         state = GameState.PlayerTurn;
+        playerTurn();
+    }
+
+    private IEnumerator setupDay()
+    {
+        impot.days += 1;
+        impot.Pay();
+        Debug.Log(impot.impotFinal);
+        enemyPrefabs.Clear();
+        enemyUnit.listOBJ.objList.Clear();
+        foreach (GameObject enemy in cpyEnemyPrefabs)
+        {
+            enemyPrefabs.Add(enemy);
+        }
+        foreach (sellObject obj in list.cpyobjList)
+        {
+            list.objList.Add(obj);
+        }
+        yield return new WaitForSeconds(2f);
+        enemyUnit.player.money -= impot.impotFinal;
+        enemyHUD.updatePrice(enemyUnit.price);
+        state = GameState.PlayerTurn;
+        playerTurn();
     }
 
     private void AttackPatern(int rng)
@@ -119,8 +164,14 @@ public class StateMachine : MonoBehaviour
         switch (rng)
         {
             case 1:
-
-                enemyUnit.price -= (int)System.Math.Round((10) + (0.5 * (5)) * enemyUnit.mefiance + buffAttack);
+                if (enemyUnit.price > 0)
+                {
+                    enemyUnit.price -= (int)System.Math.Round((10) + (0.5 * (5)) * enemyUnit.mefiance + buffAttack);
+                }
+                else
+                {
+                    enemyUnit.price = 0;
+                }
                 enemyHUD.updatePrice(enemyUnit.price);
                 break;
 

@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class DotweenAnimation : MonoBehaviour
 {
-    List<string> actionRandom = new List<string>();
+    private List<string> actionRandom = new List<string>();
 
     [Range(0, 3)]
     public int animIndex;
@@ -16,17 +15,19 @@ public class DotweenAnimation : MonoBehaviour
 
     [Header("RotateLeftRight")]
     private float rotation = 30;
+
     private float rotDuration = 0.2f;
     private int numberOfLoopRot = 4;
 
     [Header("MoveLeftRight")]
     private float moveDistLR = 300f;
+
     private float moveDurationLR = 0.2f;
     private int numberOfLoopLR = 4;
 
-
     [Header("Scaling")]
     private float scaleUpX = 3f;
+
     private float scaleUpXDur = 0.2f;
     private int numberOfLoopScaleUpX = 2;
 
@@ -44,7 +45,6 @@ public class DotweenAnimation : MonoBehaviour
     private float scaleDownDur = 0.3f;
     private int numberOfLoopScaleDown = 2;
 
-
     private void Start()
     {
         actionRandom.Add("TrueMoveUp");
@@ -57,7 +57,6 @@ public class DotweenAnimation : MonoBehaviour
     {
         ArriveAnimation();
     }
-
 
     private void Update()
     {
@@ -76,7 +75,7 @@ public class DotweenAnimation : MonoBehaviour
 
     private IEnumerator StartAnimation()
     {
-        transform.DOMoveX(transform.position.x - 800, Time.deltaTime).OnComplete(() => 
+        transform.DOMoveX(transform.position.x - 800, Time.deltaTime).OnComplete(() =>
         {
             MoveUp(14);
             transform.DOMoveX(transform.position.x + 800, 3);
@@ -86,7 +85,6 @@ public class DotweenAnimation : MonoBehaviour
         yield return new WaitForSeconds(3);
         ExitAnimation();
     }
-
 
     private void ExitAnimation()
     {
@@ -107,7 +105,7 @@ public class DotweenAnimation : MonoBehaviour
 
     public void MoveUp(int numberOfLoop = 8, float moveDuration = 0.2f)
     {
-        print(moveDist);
+        //print(moveDist);
         transform.parent.DOMoveY(transform.parent.position.y + moveDist, moveDuration).SetLoops(numberOfLoop, LoopType.Yoyo).SetEase(Ease.OutSine);
     }
 
