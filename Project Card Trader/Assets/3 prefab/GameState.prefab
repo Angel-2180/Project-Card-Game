@@ -45,14 +45,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd9e382d464cf094187f64291295541d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gm: {fileID: 0}
   state: 0
   enemyPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 4401199218250405160, guid: 982f0fa6fcc69c34896b8be9c4d96710, type: 3}
+  - {fileID: 6378906732518802277, guid: 073f9c8566cdaf94dbecfb0362ab95ac, type: 3}
+  - {fileID: 3128384962132612057, guid: a4e6d4f5bf5a38b4085f2e46a3ad36de, type: 3}
+  - {fileID: 63981781625098042, guid: c910035e5cfb3af4481815a575db5f07, type: 3}
+  - {fileID: 1934187180282097504, guid: b09703c7c20593c4ea269785aac1a219, type: 3}
+  - {fileID: 4376540955600388720, guid: f93655073b39a8341b7ec8ff350f61f4, type: 3}
+  - {fileID: 6149285134298303012, guid: d0ef0d0b25f25a84d823447f87f37b49, type: 3}
+  - {fileID: 390460180599885212, guid: 00bf1a1ea11400047a95cfd3fe2abc35, type: 3}
+  - {fileID: 7988794471244177259, guid: 1ec251177ea224949b5197c7d3b13a65, type: 3}
+  - {fileID: 2397590861036944082, guid: bd77d4d4ec4738f42a2635f7350360cf, type: 3}
+  - {fileID: 1678283988250090040, guid: 904b28fd9f3a1f942ab97e29d6efc37e, type: 3}
+  cpyEnemyPrefabs: []
   enemyUnit: {fileID: 9162981779917063319, guid: 6a16efa5466cb87488966428d282fa2b, type: 3}
   enemyTransform: {fileID: 0}
-  enemyHUD: {fileID: 9178020804659428794, guid: 20f11a8fae85a1945a0b870fe22c7e56, type: 3}
+  enemyHUD: {fileID: 0}
 --- !u!114 &4650478784334833442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,10 +76,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWeekEnd: 0
-  charisme: 0
+  charisme: 1
   money: 50
   semaine: 0
-  energie: 0
+  maxEnergie: 3
+  energie: 3
 --- !u!114 &1523186390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,3 +96,4 @@ MonoBehaviour:
   objList:
   - {fileID: 6469774850858433814, guid: 4431eac2a15c9f946a109f6b24cb6d7f, type: 3}
   - {fileID: 6469774850858433814, guid: 4431eac2a15c9f946a109f6b24cb6d7f, type: 3}
+  cpyobjList: []
