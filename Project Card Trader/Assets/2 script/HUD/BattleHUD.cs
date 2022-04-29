@@ -13,6 +13,18 @@ public class BattleHUD : MonoBehaviour
     public Text monetyText;
     public Slider moodSlider;
 
+    private void Awake()
+    {
+        WealthText.text = "";
+        investmentText.text = "";
+        patienceText.text = "";
+        customerName.text = "";
+        priceText.text = "";
+
+        moodSlider.maxValue = 10;
+        moodSlider.value = 0;
+    }
+
     public void setHUD(Unit unit)
     {
         WealthText.text = unit.wealth.ToString();
@@ -23,6 +35,18 @@ public class BattleHUD : MonoBehaviour
         monetyText.text = "Money: " + unit.player.money.ToString();
         moodSlider.maxValue = unit.maxHapiness * unit.maxCalm;
         moodSlider.value = unit.hapiness * unit.calm;
+    }
+
+    public void resetHUD()
+    {
+        WealthText.text = "";
+        investmentText.text = "";
+        patienceText.text = "";
+        customerName.text = "";
+        priceText.text = "";
+
+        moodSlider.maxValue = 10;
+        moodSlider.value = 0;
     }
 
     public void updatePatience(int patience)

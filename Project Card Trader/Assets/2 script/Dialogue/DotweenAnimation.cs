@@ -93,7 +93,7 @@ public class DotweenAnimation : MonoBehaviour
         transform.DORotateQuaternion(Quaternion.Euler(0, 180, 0), 0.5f).SetEase(Ease.OutExpo).OnComplete(() =>
         {
             MoveUp(-1);
-            transform.parent.DOScale(transform.parent.lossyScale.x - 0.5f, 1).SetEase(Ease.InOutSine).OnComplete(() =>
+            transform.parent.DOScale(transform.parent.lossyScale.x, 1).SetEase(Ease.InOutSine).OnComplete(() =>
             {
                 transform.DOMoveX(transform.position.x - 800, 3).SetEase(Ease.OutFlash);
             });
