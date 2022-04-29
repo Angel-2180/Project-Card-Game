@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class DeckManager : MonoBehaviour
 {
     public List<Card> deck;
@@ -14,12 +13,12 @@ public class DeckManager : MonoBehaviour
 
     private void DrawCardFirstTurn()
     {
-        if(deck.Count >=1)
+        if (deck.Count >= 1)
         {
             Card randCard = deck[Random.Range(0, deck.Count)];
-            for(int i = 0; i < slotAvalable.Length; i++)
+            for (int i = 0; i < slotAvalable.Length; i++)
             {
-                if(slotAvalable[i] == true)
+                if (slotAvalable[i] == true)
                 {
                     randCard.gameObject.SetActive(true);
                     randCard.index = i;
@@ -28,12 +27,15 @@ public class DeckManager : MonoBehaviour
                     deck.Remove(randCard);
                     slotAvalable[i] = false;
                     return;
+
+                    // PLAY  SOUND
+                    AudioManager_SE.instance.Play_Card_Draw();
                 }
             }
         }
     }
 
-    void Update()
+    private void Update()
     {
         DrawCardFirstTurn();
     }

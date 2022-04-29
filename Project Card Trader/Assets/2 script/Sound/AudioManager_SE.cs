@@ -18,117 +18,135 @@ public class AudioManager_SE : MonoBehaviour
 
         instance = this;
     }
-    public void PlaySound00()
+
+    public void StopSound()
     {
         audioSource.Stop();
-    }  
-    
-    public void PlaySound01()
+    }
+
+    //public void PlayNext()
+    //{
+    //    for (int i = 1; i < listAudio.Length; i++)
+    //    {
+    //        audioSource.clip = listAudio[i+1])];
+    //    audioSource.Play();
+    //    }
+    //    //  AudioManager_BGM.instance.PlayBGM01(); a metttre la où on joue le son
+    //}
+
+    public void PlaySERandom()
+    {
+        audioSource.clip = listAudio[Random.Range(0, listAudio.Length)];
+        audioSource.Play();
+    }
+
+    public void Play_Battle_SFX_Buff()
     {
         audioSource.clip = listAudio[0];
         audioSource.Play();
 
         //  AudioManager_SE.instance.PlaySound01(); a metttre la où on joue le son
-
     }
 
-    public void PlaySound02()
+    public void Play_Battle_SFX_Debuff()
     {
         audioSource.clip = listAudio[1];
         audioSource.Play();
-    }    
-    
-    
-    public void PlaySound03()
+    }
+
+    public void Play_Card_Discard()
     {
         audioSource.clip = listAudio[2];
         audioSource.Play();
     }
 
-    public void PlaySound04()
+    public void Play_Card_Draw()
     {
         audioSource.clip = listAudio[3];
         audioSource.Play();
     }
 
-    public void PlaySound05()
+    public void Play_Card_Exhaust()
     {
         audioSource.clip = listAudio[4];
         audioSource.Play();
     }
 
-    public void PlaySound06()
+    public void Play_Card_Select()
     {
         audioSource.clip = listAudio[5];
         audioSource.Play();
     }
 
-    public void PlaySound07()
+    public void Play_Card_Hover()
     {
         audioSource.clip = listAudio[6];
         audioSource.Play();
     }
 
-    public void PlaySound08()
+    public void Play_Event_BattleStart()
     {
         audioSource.clip = listAudio[7];
         audioSource.Play();
     }
 
-    public void PlaySound09()
+    public void Play_Event_DealMoney()
     {
         audioSource.clip = listAudio[8];
         audioSource.Play();
     }
 
-    public void PlaySound10()
+    public void Play_Event_DealVO()
     {
         audioSource.clip = listAudio[9];
         audioSource.Play();
     }
 
-    public void PlaySound11()
+    public void Play_Event_EndDay()
     {
         audioSource.clip = listAudio[10];
         audioSource.Play();
     }
 
-    public void PlaySound12()
+    public void Play_Event_EndTurn()
     {
         audioSource.clip = listAudio[11];
         audioSource.Play();
     }
 
-    public void PlaySound13()
+    public void Play_Event_EnemyTurn()
     {
         audioSource.clip = listAudio[12];
         audioSource.Play();
     }
 
-    public void PlaySound14()
+    public void Play_Event_PlayerTurn()
     {
         audioSource.clip = listAudio[13];
         audioSource.Play();
     }
 
-    public void PlaySound15()
+    public void Play_UI_ButtonClick()
     {
         audioSource.clip = listAudio[14];
         audioSource.Play();
     }
 
-    public void PlaySound16()
+    public void Play_UI_ButtonNo()
     {
         audioSource.clip = listAudio[15];
         audioSource.Play();
     }
 
-    public void PlaySound17()
+    public void Play_UI_ButtonYes()
     {
         audioSource.clip = listAudio[16];
         audioSource.Play();
     }
 
-
-
+    public void Play_UI_ViewDeck()
+    {
+        audioSource.clip = listAudio[16];
+        audioSource.Play();
+    }
 }

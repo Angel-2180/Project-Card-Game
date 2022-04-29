@@ -36,31 +36,21 @@ public class AudioManager_BGM : MonoBehaviour
     }
 
 
+    public void PlayBGMRandom()
+    {
+        audioSource.clip = listAudio[Random.Range(0, listAudio.Length)];
+        audioSource.Play();
+    }
+
     public void PlayBGM01()
     {
-        //float rnd = Random.Range(0, 5);
-        //rnd = Mathf.Round(rnd * 10) / 10;
-        //Debug.Log("rnd");
-        //<  >
-        //if(rnd > 1)
-        //{
-        //    audioSource.clip = listAudio[0];
-        //}
-        //if ( 1 > rnd > 2)
-        //{
-        //    audioSource.clip = listAudio[0];
-        //}
-
-
-        audioSource.clip = listAudio[Random.Range(0, 6)];
+        audioSource.clip = listAudio[0];
         audioSource.Play();
-
-        //  AudioManager_BGM.instance.PlayBGM01(); a metttre la où on joue le son
     }
 
     public void PlayBGM02()
     {
-        audioSource.clip = listAudio[Random.Range(6, 8)];
+        audioSource.clip = listAudio[1];
         audioSource.Play();
     }
 
@@ -87,7 +77,13 @@ public class AudioManager_BGM : MonoBehaviour
         audioSource.clip = listAudio[5];
         audioSource.Play();
     }
+    public void PlayBGM07()
+    {
+        audioSource.clip = listAudio[6];
+        audioSource.Play();
+    }
 
- 
+
+
 
 }

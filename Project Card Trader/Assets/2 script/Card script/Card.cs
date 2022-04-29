@@ -33,6 +33,9 @@ public class Card : MonoBehaviour
         gm.hand.Remove(this);
         gm.discard.Add(this);
         gameObject.SetActive(false);
+
+        // PLAY  SOUND
+        AudioManager_SE.instance.Play_Card_Discard();
     }
 
     public void BanCard()
@@ -40,6 +43,9 @@ public class Card : MonoBehaviour
         gm.hand.Remove(this);
         gm.banCard.Add(this);
         gameObject.SetActive(false);
+
+        // PLAY  SOUND
+        AudioManager_SE.instance.Play_Card_Exhaust();
     }
 
     private void OnMouseUp()
@@ -48,6 +54,7 @@ public class Card : MonoBehaviour
         {
             if (cost <= CardEffects.stat.player.energie)
             {
+                gm.nbCardPlay += 1;
                 Debug.Log("B" + CardEffects.stat.player.energie);
                 isPlayed = true;
                 CardEffects.stat.player.energie -= cost;
@@ -55,6 +62,9 @@ public class Card : MonoBehaviour
                 gm.slotAvalable[index] = true;
                 Invoke("MoveToDiscardPile", 2f);
                 Debug.Log("A" + CardEffects.stat.player.energie);
+
+                // PLAY  SOUND
+                AudioManager_SE.instance.Play_Card_Select();
             }
             else
             {
@@ -101,5 +111,8 @@ public class Card : MonoBehaviour
         Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
         transform.position = worldPosition;
+
+        // PLAY  SOUND
+        AudioManager_SE.instance.Play_Card_Hover();
     }
 }

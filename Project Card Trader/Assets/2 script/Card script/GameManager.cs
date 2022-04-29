@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
                     deck.Remove(randCard);
                     hand.Add(randCard);
                     slotAvalable[i] = false;
+
+                    // PLAY  SOUND
+                    AudioManager_SE.instance.Play_Card_Draw();
                 }
             }
         }
@@ -58,6 +61,9 @@ public class GameManager : MonoBehaviour
         {
             discard.Add(card);
             card.gameObject.SetActive(false);
+
+            // PLAY  SOUND
+            AudioManager_SE.instance.Play_Card_Discard();
         }
         hand.Clear();
     }
@@ -78,6 +84,9 @@ public class GameManager : MonoBehaviour
                 hand.Add(cardDraw);
                 slotAvalable[i] = false;
                 return;
+
+                // PLAY  SOUND
+                AudioManager_SE.instance.Play_Card_Draw();
             }
         }
     }
@@ -87,6 +96,9 @@ public class GameManager : MonoBehaviour
         foreach (Card card in discard)
         {
             deck.Add(card);
+
+            // PLAY  SOUND
+            AudioManager_SE.instance.Play_Card_Discard();
         }
         discard.Clear();
     }
