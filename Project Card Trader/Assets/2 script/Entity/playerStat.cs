@@ -9,7 +9,8 @@ public class playerStat : MonoBehaviour
     public int charisme;
     public int money = 50;
     public int semaine;
-    public int energie;
+    public int maxEnergie = 3;
+    public int energie = 3;
 
     private void Awake()
     {

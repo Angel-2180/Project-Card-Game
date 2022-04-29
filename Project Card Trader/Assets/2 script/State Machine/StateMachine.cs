@@ -10,6 +10,7 @@ public enum GameState
 public class StateMachine : MonoBehaviour
 {
     public static StateMachine current;
+    public GameManager gm;
     public GameState state;
 
     public List<GameObject> enemyPrefabs;
@@ -63,6 +64,9 @@ public class StateMachine : MonoBehaviour
 
     private void playerTurn()
     {
+        enemyUnit.player.energie = enemyUnit.player.maxEnergie;
+        Debug.Log("PLAYER TURN");
+        gm.DrawCardFirstTurn();
         //do something basically wait here
     }
 
@@ -72,6 +76,7 @@ public class StateMachine : MonoBehaviour
         {
             return;
         }
+        gm.DiscardHand();
 
         enemyUnit.patience -= 1;
         enemyHUD.updatePatience(enemyUnit.patience);

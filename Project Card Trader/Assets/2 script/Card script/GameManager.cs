@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     public int nbCardDraw;
     public int nbCardBan;
+    public int nbCardPlay;
 
     public bool discardHandEndTurn = true;
 
@@ -25,13 +26,14 @@ public class GameManager : MonoBehaviour
     {
         initialDeck = deck;
     }
-    private void DrawCardFirstTurn()
+
+    public void DrawCardFirstTurn()
     {
         if (deck.Count >= 1)
         {
-            Card randCard = deck[Random.Range(0, deck.Count)];
             for (int i = 0; i < nbStartCard; i++)
             {
+                Card randCard = deck[Random.Range(0, deck.Count)];
                 if (slotAvalable[i] == true)
                 {
                     randCard.gameObject.SetActive(true);
@@ -41,20 +43,24 @@ public class GameManager : MonoBehaviour
                     deck.Remove(randCard);
                     hand.Add(randCard);
                     slotAvalable[i] = false;
-                    return;
                 }
             }
         }
     }
+
     public void DiscardHand()
     {
+        for (int i = 0; i < handSlot.Length; i++)
+        {
+            slotAvalable[i] = true;
+        }
         foreach (Card card in hand)
         {
             discard.Add(card);
+            card.gameObject.SetActive(false);
         }
         hand.Clear();
     }
-
 
     public void DrawCard()
     {
@@ -76,7 +82,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void DiscardToDeck()
+    public void DiscardToDeck()
     {
         foreach (Card card in discard)
         {
@@ -84,25 +90,26 @@ public class GameManager : MonoBehaviour
         }
         discard.Clear();
     }
-    void Update()
+
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            hand[1].transform.position = GameObject.Find("Played Card Slot").transform.position;
-        }
-        DrawCardFirstTurn();
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    hand[1].transform.position = GameObject.Find("Played Card Slot").transform.position;
+        //}
+        //DrawCardFirstTurn();
 
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-        }
+        //if (Input.GetKeyDown(KeyCode.J))
+        //{
+        //}
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            DrawCard();
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            DiscardToDeck();
-        }
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    DrawCard();
+        //}
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    DiscardToDeck();
+        //}
     }
 }

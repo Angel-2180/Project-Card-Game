@@ -7,14 +7,15 @@ public class Card : MonoBehaviour
 {
     public int id;
     public int index;
-	public int cost;
+    public int cost;
 
-	public bool isCost = true;
+    public bool isCost = true;
     public bool isPlayed;
     public bool beingDrag;
     private bool isInshop;
 
-	public GameManager gm;
+    public CardEffects effects;
+    public GameManager gm;
 
     //private void OnMouseDown()
     //{
@@ -27,27 +28,38 @@ public class Card : MonoBehaviour
     //    }
     //}
 
-    void MoveToDiscardPile()
-	{
-		gm.hand.Remove(this);
-		gm.discard.Add(this);
-		gameObject.SetActive(false);
-	}
+    private void MoveToDiscardPile()
+    {
+        gm.hand.Remove(this);
+        gm.discard.Add(this);
+        gameObject.SetActive(false);
+    }
 
-	public void BanCard()
-	{
-		gm.hand.Remove(this);
-		gm.banCard.Add(this);
-		gameObject.SetActive(false);
-	}
+    public void BanCard()
+    {
+        gm.hand.Remove(this);
+        gm.banCard.Add(this);
+        gameObject.SetActive(false);
+    }
 
     private void OnMouseUp()
     {
-        if(isInshop)
+        if (isInshop)
         {
-            isPlayed = true;
-            gm.slotAvalable[index] = true;
-            Invoke("MoveToDiscardPile", 2f);
+            if (cost <= CardEffects.stat.player.energie)
+            {
+                Debug.Log("B" + CardEffects.stat.player.energie);
+                isPlayed = true;
+                CardEffects.stat.player.energie -= cost;
+                effects.ChooseCardEffects(id);
+                gm.slotAvalable[index] = true;
+                Invoke("MoveToDiscardPile", 2f);
+                Debug.Log("A" + CardEffects.stat.player.energie);
+            }
+            else
+            {
+                transform.position = gm.handSlot[index].position;
+            }
         }
         else if (!isInshop)
         {
@@ -55,7 +67,7 @@ public class Card : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Shop")
         {
@@ -64,7 +76,7 @@ public class Card : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Shop")
         {
@@ -75,30 +87,19 @@ public class Card : MonoBehaviour
 
     private void Update()
     {
-
         if (!beingDrag)
         {
-			//Retourne dans la main
-			//print("Retrun to hand");
-		}
-		beingDrag = false;
-	}
+            //Retourne dans la main
+            //print("Retrun to hand");
+        }
+        beingDrag = false;
+    }
 
     private void OnMouseDrag()
     {
-		beingDrag = true;
-		Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
-		Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-		transform.position = worldPosition;
-	}
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Shop"))
-        {
-			
-			print("Play Card");
-        }
-
+        beingDrag = true;
+        Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
+        transform.position = worldPosition;
     }
 }

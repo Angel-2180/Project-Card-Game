@@ -5,13 +5,14 @@ using UnityEngine;
 public class CardEffects : MonoBehaviour
 {
     /*Norme fonctions des cartes
-    Nom de la fonction (l'effet dans les grandes lignes) 
+    Nom de la fonction (l'effet dans les grandes lignes)
     avec le numero de la carte
     ex une carte qui fait piocher : private void DrawOne1()*/
 
+    public static Unit stat;
+    [SerializeField] private GameManager gm;
 
-    private static Unit stat;
-    [SerializeField] GameManager gm;
+    public BattleHUD hud;
 
     /*Valeurs pour les tours d'apres*/
     public int stayEnergie;
@@ -19,6 +20,7 @@ public class CardEffects : MonoBehaviour
     public static void SearchPlayer()       /* ON NE TOUCHE PAS */
     {
         stat = FindObjectOfType<Unit>();
+        Debug.Log(stat.name);
     }
 
     private void EnergiePlus1()
@@ -30,7 +32,7 @@ public class CardEffects : MonoBehaviour
     {
         for (int i = 0; i < stat.player.energie; i++)
         {
-            gm.DrawCard(); 
+            gm.DrawCard();
         }
     }
 
@@ -54,16 +56,18 @@ public class CardEffects : MonoBehaviour
     {
         gm.discardHandEndTurn = false;
     }
+
     private void MultipliEnergie7()
     {
         stat.player.energie *= 2;
 
-        foreach(Card card in gm.hand)
+        foreach (Card card in gm.hand)
         {
             gm.discard.Add(card);
         }
         gm.hand.Clear();
     }
+
     private void UpInvestissement8()
     {
         stat.investisment = stat.investisment + (stat.investisment * 15 / 100);
@@ -77,7 +81,7 @@ public class CardEffects : MonoBehaviour
 
     private void UpInvestDownPatience10()
     {
-        stat.investisment += stat.investisment* 50 / 100;
+        stat.investisment += stat.investisment * 50 / 100;
         stat.patience -= 1;
     }
 
@@ -85,23 +89,26 @@ public class CardEffects : MonoBehaviour
     {
         stat.player.charisme += (1 * gm.nbCardBan);
     }
+
     private void PlusHappinessOnDraw12()
     {
-        stat.hapiness += ((stat.hapiness * 5 /100) * gm.nbCardDraw);
+        stat.hapiness += ((stat.hapiness * 5 / 100) * gm.nbCardDraw);
     }
 
     private void CardDrawSix13()
     {
-        for(int i = 0; i < 5; i++ )
+        for (int i = 0; i < 5; i++)
         {
             gm.DrawCard();
         }
     }
+
     private void ResetMood14()          /**/
     {
         stat.calm = 0.5f;
         stat.hapiness = 100;
     }
+
     private void DoublePriceAndNullPatience15()
     {
         int i = Random.Range(1, 3);
@@ -117,7 +124,7 @@ public class CardEffects : MonoBehaviour
     private void SellPriceUp17()
     {
         stat.price *= 2;
-        stat.patience -= 3;     
+        stat.patience -= 3;
     }
 
     private void DoublePriceAndNullPatience18()
@@ -136,8 +143,9 @@ public class CardEffects : MonoBehaviour
     {
         stat.investisment += (stat.investisment * 7 / 100) * gm.nbCardDraw;
     }
+
     private void DoublePrice22()
-    {   
+    {
         stat.price *= 2;
     }
 
@@ -149,7 +157,7 @@ public class CardEffects : MonoBehaviour
                 EnergiePlus1();
                 break;
 
-            case 2 :
+            case 2:
                 DrawOne2();
                 break;
 
@@ -160,6 +168,7 @@ public class CardEffects : MonoBehaviour
             case 4:
                 UpHappy4();
                 break;
+
             case 5:
                 DrawTwo5();
                 break;
@@ -199,36 +208,55 @@ public class CardEffects : MonoBehaviour
             case 14:
                 ResetMood14();
                 break;
+
             case 15:
                 DoublePriceAndNullPatience15();
                 break;
+
             case 16:
                 ConservEnergie16(); /* théorie ca marche manque les modifications dans le stateMachine*/
                 break;
+
             case 17:
                 SellPriceUp17();
                 break;
+
             case 18:
                 DoublePriceAndNullPatience18();
                 break;
+
             case 19:
                 IncrementPatienceAndNullInvest19();
                 break;
+
             case 21:
                 DrawCardPlusInvest21();
                 break;
+
             case 22:
                 DoublePrice22();
                 break;
         }
-
+        //Debug.Log("Hapiness " + stat.hapiness);
+        //Debug.Log("Calm " + stat.calm);
+        //Debug.Log("Price " + stat.price);
+        //Debug.Log("Mefiance " + stat.mefiance);
+        //Debug.Log("Investment " + stat.investisment);
     }
-    void Update()
+
+    private void Update()
     {
-        
-        if(Input.GetKeyDown(KeyCode.U)) /*permet de tester les fonction une par une avec une input*/
+        if (stat != null)
         {
-            ChooseCardEffects(9);
+            if (stat.price > stat.investisment)
+            {
+                stat.price = stat.investisment;
+            }
+            hud.setHUD(stat);
         }
+        //if(Input.GetKeyDown(KeyCode.U)) /*permet de tester les fonction une par une avec une input*/
+        //{
+        //    ChooseCardEffects(9);
+        //}
     }
 }
