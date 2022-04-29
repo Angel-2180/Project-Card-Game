@@ -52,10 +52,11 @@ public class Card : MonoBehaviour
 	}
 
 	public void BanCard()
-    {
+	{
 		gm.hand.Remove(this);
 		gm.banCard.Add(this);
 		gameObject.SetActive(false);
+	}
 
     private void OnMouseDrag()
     {
