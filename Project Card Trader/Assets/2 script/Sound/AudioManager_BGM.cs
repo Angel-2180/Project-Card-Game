@@ -17,7 +17,7 @@ public class AudioManager_BGM : MonoBehaviour
         }
 
         instance = this;
-        GetComponent<AudioSource>().clip = listAudio[Random.Range(0, listAudio.Length)];
+        PlayBGMRandom();
     }
 
 
